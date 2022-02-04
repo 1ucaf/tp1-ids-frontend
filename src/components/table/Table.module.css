@@ -1,0 +1,9 @@
+.styled-row {
+    cursor: pointer;
+}
+.styled-row:nth-child(even):hover{
+    background-color: rgb(60, 60, 60);
+}
+.styled-row:nth-child(odd):hover{
+    background-color: rgb(77, 77, 77);
+}
