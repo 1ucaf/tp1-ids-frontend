@@ -42,7 +42,7 @@ const Productos = () => {
 
   return(
     <TablePageContainer>
-        <CustomizedTables rows={data} columns={columns} onRowClick={id=>console.log(id)} idColumn="id"/>
+        <CustomizedTables rows={data} columns={columns} onRowClick={id=>console.log(id)} idColumn="CodigoDeBarra"/>
     </TablePageContainer>
   );
 };
