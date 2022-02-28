@@ -7,7 +7,7 @@ const FlexContainer = props => {
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: props.alignX ?? "center",
-        alignItems: props.alignX ?? "center",
+        alignItems: props.alignY ?? "center",
         margin: props.margin,
     }}>
         {props.children}

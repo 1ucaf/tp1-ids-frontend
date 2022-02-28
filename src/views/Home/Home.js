@@ -47,10 +47,8 @@ const data = [
 const Home = () => {
   return (
     <div>
-      <TablePageContainer>
-          <CustomizedTables rows={data} columns={columns} onRowClick={id=>console.log(id)} idColumn="id"/>
-      </TablePageContainer>
       <FlexContainer>
+        <h1>Bienvenido Al Sistema de Ventas de La Tienda</h1>
       </FlexContainer>
     </div>
   );

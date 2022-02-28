@@ -6,13 +6,14 @@ import FormPageContainer from "../../components/Containers/FormPageContainer";
 import Modal from '../../components/Modal/ModalComponent';
 import SingleButtonContainer from "../../components/Containers/SingleButtonContainer";
 import { loginApiCall } from "../../api/Session";
-import { setToken } from "../../utils/Utils";
+import { setToken, setUserNameCookie, setUserTypeCookie } from "../../utils/Utils";
 import { useRecoilState } from 'recoil';
-import { token, userName as userNameAtom } from '../../recoil/atom/atoms';
+import { token, userName as userNameAtom, userType } from '../../recoil/atom/atoms';
 
 const Login = () => {
     const [, setTokenAtom] = useRecoilState(token);
     const [, setUserNameAtom] = useRecoilState(userNameAtom);
+    const [, setUserTypeAtom] = useRecoilState(userType);
     const navigateTo = useNavigate();
 
 
@@ -69,12 +70,15 @@ const Login = () => {
     const handleLogin = e =>{
         e.preventDefault();
         loginApiCall(userName, password)
-        .then(token => {
-            console.log(token);
-            setToken(token);
-            setTokenAtom(token);
+        .then(data => {
+            console.log(data.TipoUsuario);
+            setToken(data.Token);
+            setUserTypeCookie(data.TipoUsuario)
+            setUserNameCookie(userName);
+            setTokenAtom(data.Token);
+            setUserTypeAtom(data.TipoUsuario);
             setUserNameAtom(userName);
-            navigateTo("/registros");
+            navigateTo("/");
         })
         .catch(onError);
     }

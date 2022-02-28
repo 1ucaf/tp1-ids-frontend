@@ -1,5 +1,8 @@
+import { Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { getAllProductos } from '../../api/Productos';
+import { useNavigate } from 'react-router-dom';
+import { getAllProductosApiCall } from '../../api/ProductosApiCalls';
+import FlexContainer from '../../components/Containers/FlexContainer';
 import TablePageContainer from '../../components/Containers/TablePageContainer';
 import CustomizedTables from '../../components/table/Table';
 
@@ -23,26 +26,25 @@ const columns = [
   ]
 
 const Productos = () => {
-    const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
+  const navigateTo = useNavigate();
 
-    useEffect(()=>{
-        getAllProductos()
-        .then(data=>{
-            setData(data.map((row)=>{
-                return {
-                    ...row,
-                    Marca: row.Marca.Descripcion,
-                }
-            }));
-        })
-        .catch(e => {
-            console.log(e);
-        })
-    }, [])
+  useEffect(()=>{
+    getAllProductosApiCall()
+      .then(data=>{
+          setData(data);
+      })
+      .catch(e => {
+          console.log(e);
+      })
+  }, [])
 
   return(
     <TablePageContainer>
-        <CustomizedTables rows={data} columns={columns} onRowClick={id=>console.log(id)} idColumn="CodigoDeBarra"/>
+      <FlexContainer alignX="flex-end" margin="0 0 20px 0">
+          <Button variant="contained" size="large" onClick={()=>{navigateTo("/productos/new")}}>Nuevo</Button>
+      </FlexContainer>
+      <CustomizedTables rows={data} columns={columns} onRowClick={id=>navigateTo("/productos/"+id)} idColumn="CodigoDeBarra"/>
     </TablePageContainer>
   );
 };

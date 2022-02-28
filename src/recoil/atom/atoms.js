@@ -9,3 +9,8 @@ export const userName = atom({
     key: 'userName',
     default: undefined,
 });
+
+export const userType = atom({
+    key: 'userType',
+    default: undefined,
+});
