@@ -32,6 +32,14 @@ const routesAdmin = [
       text: "Marcas",
       path: "/marcas"
   },
+  {
+    text: "Colores",
+    path: "/colores"
+  },
+  {
+    text: "Rubros",
+    path: "/rubros"
+  },
 ];
 
 const routesSalesMan = [
