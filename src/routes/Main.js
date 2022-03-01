@@ -15,6 +15,8 @@ import Productos from '../views/Productos/Productos';
 import { ProductoDetail } from '../views/Productos/ProductoDetail';
 import Marcas from '../views/Marca/Marcas';
 import MarcaDetail from '../views/Marca/MarcaDetail';
+import Talles from '../views/Talle/Talles';
+import TalleDetail from '../views/Talle/TalleDetail';
 import NewVenta from '../views/Ventas/NewVenta';
 import PrivateRoute from './PrivateRoute';
 
@@ -31,6 +33,10 @@ const routesAdmin = [
   {
       text: "Marcas",
       path: "/marcas"
+  },
+  {
+    text: "Talles",
+    path: "/talles"
   },
 ];
 
