@@ -27,8 +27,16 @@ const routesAdmin = [
       path: "/productos"
   },
   {
-      text: "Marcas",
-      path: "/marcas"
+    text: "Marcas",
+    path: "/marcas"
+  },
+  {
+    text: "Colores",
+    path: "/colores"
+  },
+  {
+    text: "Rubros",
+    path: "/rubros"
   },
 ];
 
