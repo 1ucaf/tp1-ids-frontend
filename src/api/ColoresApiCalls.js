@@ -28,7 +28,7 @@ export const saveColorApiCall = async (id, marca) => {
     }
 }
 
-export const deleteMarcaApiCall = async (id) => {
+export const deleteColorApiCall = async (id) => {
     try {
         const response = await axios.delete(rootApiRoute + "/colores/"+id);
         return response;
