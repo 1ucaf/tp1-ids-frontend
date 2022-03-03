@@ -13,12 +13,17 @@ export const getUserType = () => {
   return userType;
 }
 
+export const getSessionId = () => {
+  const sessionId = getCookie("sessionId");
+  return sessionId;
+}
+
 export const setToken = (token) => {
-    setCookie({
-        cname: "token",
-        cvalue: token,
-        exhours: 4,
-    })
+  setCookie({
+      cname: "token",
+      cvalue: token,
+      exhours: 4,
+  })
 }
 
 export const setUserNameCookie = (userName) => {
@@ -33,6 +38,14 @@ export const setUserTypeCookie = (userType) => {
     setCookie({
         cname: "userType",
         cvalue: userType,
+        exhours: 4,
+    })
+}
+
+export const setSessionId = (sessionId) => {
+    setCookie({
+        cname: "sessionId",
+        cvalue: sessionId,
         exhours: 4,
     })
 }

@@ -15,6 +15,10 @@ import Productos from '../views/Productos/Productos';
 import { ProductoDetail } from '../views/Productos/ProductoDetail';
 import Marcas from '../views/Marca/Marcas';
 import MarcaDetail from '../views/Marca/MarcaDetail';
+import Talles from '../views/Talle/Talles';
+import TalleDetail from '../views/Talle/TalleDetail';
+import NewVenta from '../views/Ventas/NewVenta';
+import PrivateRoute from './PrivateRoute';
 
 
 const routesAdmin = [
@@ -37,6 +41,10 @@ const routesAdmin = [
   {
     text: "Rubros",
     path: "/rubros"
+  },
+  {
+    text: "Talles",
+    path: "/talles"
   },
 ];
 
@@ -61,7 +69,7 @@ const Main = () => {
       setTokenAtom( getToken() );
       setUserTypeState( getUserType() );
       setUserNameState( getUserName() );
-
+      console.log(getUserType());
       setRoutes(userTypeState === "Administrador" ? routesAdmin : routesSalesMan);
       console.log(userTypeState);
   }, [setTokenAtom, setUserNameState, setUserTypeState, userTypeState]);
@@ -83,19 +91,56 @@ const Main = () => {
           <Route exact path="/login" element={<Login />}/>
           <Route exact path="/logout" element={<LogOut />}/>
           <Route path="/productos">
-            <Route path="" element={<Productos />}/>
-            <Route path=":productoId" element={<ProductoDetail />}/>
-            <Route path="new" element={ <ProductoDetail isNew={true} /> }/>
+            <Route path="" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <Productos />
+              </PrivateRoute>
+            }/>
+            <Route path=":productoId" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <ProductoDetail />
+              </PrivateRoute>
+            }/>
+            <Route path="new" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <ProductoDetail isNew={true} />
+              </PrivateRoute>
+            }/>
           </Route>
           <Route path="/marcas">
-            <Route path="" element={<Marcas />}/>
-            <Route path=":marcaId" element={<MarcaDetail />}/>
-            <Route path="new" element={<MarcaDetail isNew={true} />}/>
+            <Route path="" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <Marcas />
+              </PrivateRoute>
+              }/>
+            <Route path=":marcaId" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <MarcaDetail />
+              </PrivateRoute>
+              }/>
+            <Route path="new" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <MarcaDetail isNew={true} />
+              </PrivateRoute>
+            }/>
           </Route>
+
           <Route path="/ventas">
-            {/* <Route path="" element={<Productos />}/>
-            <Route path=":productoId" element={<ProductoDetail />}/>
-            <Route path="new" element={<ProductoDetail isNew={true} />}/> */}
+            <Route path="" element={
+              <PrivateRoute userTypeRequired="Vendedor">
+                <Productos />
+              </PrivateRoute>
+            }/>
+            <Route path=":productoId" element={
+              <PrivateRoute userTypeRequired="Vendedor">
+                <ProductoDetail />
+              </PrivateRoute>
+            }/>
+            <Route path="new" element={
+              <PrivateRoute userTypeRequired="Vendedor">
+                <NewVenta />
+              </PrivateRoute>
+            }/>
           </Route>
         </Routes>
     </Router>

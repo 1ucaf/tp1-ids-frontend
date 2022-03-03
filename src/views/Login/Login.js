@@ -6,7 +6,7 @@ import FormPageContainer from "../../components/Containers/FormPageContainer";
 import Modal from '../../components/Modal/ModalComponent';
 import SingleButtonContainer from "../../components/Containers/SingleButtonContainer";
 import { loginApiCall } from "../../api/Session";
-import { setToken, setUserNameCookie, setUserTypeCookie } from "../../utils/Utils";
+import { setSessionId, setToken, setUserNameCookie, setUserTypeCookie } from "../../utils/Utils";
 import { useRecoilState } from 'recoil';
 import { token, userName as userNameAtom, userType } from '../../recoil/atom/atoms';
 
@@ -73,6 +73,7 @@ const Login = () => {
         .then(data => {
             console.log(data.TipoUsuario);
             setToken(data.Token);
+            setSessionId(data.SessionId);
             setUserTypeCookie(data.TipoUsuario)
             setUserNameCookie(userName);
             setTokenAtom(data.Token);
