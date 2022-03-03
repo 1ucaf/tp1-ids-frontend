@@ -19,6 +19,10 @@ import Talles from '../views/Talle/Talles';
 import TalleDetail from '../views/Talle/TalleDetail';
 import NewVenta from '../views/Ventas/NewVenta';
 import PrivateRoute from './PrivateRoute';
+import Colores from '../views/Color/Colores';
+import ColorDetail from '../views/Color/ColorDetail';
+import Rubros from '../views/Rubro/Rubro';
+import RubroDetail from '../views/Rubro/RubroDetail';
 
 
 const routesAdmin = [
@@ -45,6 +49,14 @@ const routesAdmin = [
   {
     text: "Talles",
     path: "/talles"
+  },
+  {
+    text: "Colores",
+    path: "/colores"
+  },
+  {
+    text: "Rubros",
+    path: "/rubros"
   },
 ];
 
@@ -121,6 +133,42 @@ const Main = () => {
             <Route path="new" element={
               <PrivateRoute userTypeRequired="Administrador">
                 <MarcaDetail isNew={true} />
+              </PrivateRoute>
+            }/>
+          </Route>
+
+          <Route path="/colores">
+            <Route path="" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <Colores />
+              </PrivateRoute>
+              }/>
+            <Route path=":colorId" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <ColorDetail />
+              </PrivateRoute>
+              }/>
+            <Route path="new" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <ColorDetail isNew={true} />
+              </PrivateRoute>
+            }/>
+          </Route>
+
+          <Route path="/rubros">
+            <Route path="" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <Rubros />
+              </PrivateRoute>
+              }/>
+            <Route path=":rubroId" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <RubroDetail />
+              </PrivateRoute>
+              }/>
+            <Route path="new" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <RubroDetail isNew={true} />
               </PrivateRoute>
             }/>
           </Route>
