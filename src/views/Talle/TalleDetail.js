@@ -33,7 +33,7 @@ const TalleDetail = props => {
 
     useEffect(()=>{
         if(talleId) {
-            getMarcaApiCall(talleId)
+            getTalleApiCall(talleId)
             .then((data)=>{
                 console.log(data);
                 setMarca(data);
