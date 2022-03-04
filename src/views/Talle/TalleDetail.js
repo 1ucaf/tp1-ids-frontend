@@ -13,7 +13,7 @@ const TalleDetail = props => {
 
     const { talleId } = useParams();
 
-    const [talle, setMarca] = useState({});
+    const [talle, setTalle] = useState({});
     const [modalProps, setModalProps] = useState({
         title: "",
         message: "",
@@ -33,14 +33,14 @@ const TalleDetail = props => {
 
     useEffect(()=>{
         if(talleId) {
-            getMarcaApiCall(talleId)
+            getTalleApiCall(talleId)
             .then((data)=>{
                 console.log(data);
-                setMarca(data);
+                setTalle(data);
             });
         }
         else {
-            setMarca({Id: 0});
+            setTalle({Id: 0});
         }
     }, [])
 
@@ -73,7 +73,7 @@ const TalleDetail = props => {
     }
 
     const onChangeDescripcion = e => {
-        setMarca({...talle,
+        setTalle({...talle,
             Descripcion: e.target.value,
         })
     }
