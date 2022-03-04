@@ -23,6 +23,8 @@ import Colores from '../views/Color/Colores';
 import ColorDetail from '../views/Color/ColorDetail';
 import Rubros from '../views/Rubro/Rubro';
 import RubroDetail from '../views/Rubro/RubroDetail';
+import UsuarioDetail from '../views/Usuario/UsuarioDetail';
+import Usuarios from '../views/Usuario/Usuarios';
 
 
 const routesAdmin = [
@@ -57,6 +59,10 @@ const routesAdmin = [
   {
     text: "Rubros",
     path: "/rubros"
+  },
+  {
+    text: "Usuarios",
+    path: "/usuarios"
   },
 ];
 
@@ -137,6 +143,24 @@ const Main = () => {
             }/>
           </Route>
 
+          <Route path="/talles">
+            <Route path="" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <Talles />
+              </PrivateRoute>
+              }/>
+            <Route path=":tallesId" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <TalleDetail />
+              </PrivateRoute>
+              }/>
+            <Route path="new" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <talleDetail isNew={true} />
+              </PrivateRoute>
+            }/>
+          </Route>
+
           <Route path="/colores">
             <Route path="" element={
               <PrivateRoute userTypeRequired="Administrador">
@@ -172,7 +196,25 @@ const Main = () => {
               </PrivateRoute>
             }/>
           </Route>
-
+         
+          <Route path="/usuarios">
+            <Route path="" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <Usuarios />
+              </PrivateRoute>
+              }/>
+            <Route path=":UsuarioId" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <UsuarioDetail />
+              </PrivateRoute>
+              }/>
+            <Route path="new" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <UsuarioDetail isNew={true} />
+              </PrivateRoute>
+            }/>
+          </Route>
+         
           <Route path="/ventas">
             <Route path="" element={
               <PrivateRoute userTypeRequired="Vendedor">
