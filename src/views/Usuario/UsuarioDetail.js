@@ -4,16 +4,16 @@ import React, { useEffect, useState } from 'react';
 import FormPageContainer from '../../components/Containers/FormPageContainer';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate, useParams } from 'react-router-dom';
-import { deleteTalleApiCall, getTalleApiCall, saveTalleApiCall } from '../../api/TallesApiCalls';
+import { deleteUsuarioApiCall, getUsuarioApiCall, saveUsuarioApiCall } from '../../api/UsuariosApiCalls';
 import FormButtonsContainer from '../../components/Containers/FormButtonsContainer';
 import ModalComponent from '../../components/Modal/ModalComponent';
 
-const TalleDetail = props => {
+const UsuarioDetail = props => {
     const navigateTo = useNavigate();
 
-    const { talleId } = useParams();
+    const { usuarioId } = useParams();
 
-    const [talle, setTalle] = useState({});
+    const [usuario, setUsuario] = useState({});
     const [modalProps, setModalProps] = useState({
         title: "",
         message: "",
@@ -32,21 +32,21 @@ const TalleDetail = props => {
     }
 
     useEffect(()=>{
-        if(talleId) {
-            getTalleApiCall(talleId)
+        if(usuarioId) {
+            getUsuarioApiCall(usuarioId)
             .then((data)=>{
                 console.log(data);
-                setTalle(data);
+                setUsuario(data);
             });
         }
         else {
-            setTalle({Id: 0});
+            setUsuario({Legajo: 0});
         }
     }, [])
 
     
     const onDelete = () => {
-        deleteTalleApiCall(talle.Id)
+        deleteUsuarioApiCall(usuario.Id)
         .then(data => {
             console.log(data);
             setModalProps({
@@ -54,7 +54,7 @@ const TalleDetail = props => {
                 title: "¡Eliminado!",
                 show: true,
                 type: "",
-                message: "Registro '" + talle.Descripcion + "' eliminado con éxito",
+                message: "El usuario '" + usuario.UserName + "' fue eliminado con éxito",
                 afterCloseModal: goBack,
             })
         })
@@ -67,28 +67,28 @@ const TalleDetail = props => {
             title: "Borrar",
             show: true,
             type: "delete",
-            message: "¿Está seguro que desea eliminar el Talle '" + talle.Descripcion + "'?",
+            message: "¿Está seguro que desea eliminar el usuario'" + usuario.UserName + "'?",
             onDelete: onDelete,
         })
     }
 
     const onChangeDescripcion = e => {
-        setTalle({...talle,
+        setUsuario({...usuario,
             Descripcion: e.target.value,
         })
     }
 
     const goBack = () => {
-        navigateTo("/talles");
+        navigateTo("/usuario");
     }
 
     const onSave = () => {
-        saveTalleApiCall(talle.Id, talle)
+        saveUsuarioApiCall(usuario.Legajo, usuario)
         .then(response=>{
             setModalProps({
                 title: "Guardado",
                 show: true,
-                message: "Talle " + talle.Descripcion + " guardado con éxito",
+                message: "Usuario " + usuario.UserName + " guardado con éxito",
                 afterCloseModal: goBack
             })
         })
@@ -111,11 +111,11 @@ const TalleDetail = props => {
                 <FormGroup>
                     <FormControl sx={{ minWidth: "30%" }}>
                         <small> Código </small>
-                        <Input id="my-input" aria-describedby="my-helper-text" disabled value={talle.Id ?? ""} />
+                        <Input id="my-input" aria-describedby="my-helper-text" disabled value={usuario.Legajo ?? ""} />
                     </FormControl>
                     <FormControl sx={{ minWidth: "60%" }}>
                         <small> Descripción </small>
-                        <Input onChange={onChangeDescripcion} id="my-input" aria-describedby="my-helper-text" value={talle.Descripcion ?? ""} />
+                        <Input onChange={onChangeDescripcion} id="my-input" aria-describedby="my-helper-text" value={usuario.UserName ?? ""} />
                     </FormControl>
                 </FormGroup>
                 <FormButtonsContainer>
@@ -127,4 +127,4 @@ const TalleDetail = props => {
     );
 };
 
-export default TalleDetail;
+export default UsuarioDetail;

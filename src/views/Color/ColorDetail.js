@@ -4,16 +4,16 @@ import React, { useEffect, useState } from 'react';
 import FormPageContainer from '../../components/Containers/FormPageContainer';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate, useParams } from 'react-router-dom';
-import { deleteTalleApiCall, getTalleApiCall, saveTalleApiCall } from '../../api/TallesApiCalls';
+import { deleteColorApiCall, getColorApiCall, saveColorApiCall } from '../../api/ColoresApiCalls';
 import FormButtonsContainer from '../../components/Containers/FormButtonsContainer';
 import ModalComponent from '../../components/Modal/ModalComponent';
 
-const TalleDetail = props => {
+const ColorDetail = props => {
     const navigateTo = useNavigate();
 
-    const { talleId } = useParams();
+    const { colorId } = useParams();
 
-    const [talle, setTalle] = useState({});
+    const [color, setColor] = useState({});
     const [modalProps, setModalProps] = useState({
         title: "",
         message: "",
@@ -32,21 +32,21 @@ const TalleDetail = props => {
     }
 
     useEffect(()=>{
-        if(talleId) {
-            getTalleApiCall(talleId)
+        if(colorId) {
+            getColorApiCall(colorId)
             .then((data)=>{
                 console.log(data);
-                setTalle(data);
+                setColor(data);
             });
         }
         else {
-            setTalle({Id: 0});
+            setColor({Id: 0});
         }
     }, [])
 
     
     const onDelete = () => {
-        deleteTalleApiCall(talle.Id)
+        deleteColorApiCall(color.Id)
         .then(data => {
             console.log(data);
             setModalProps({
@@ -54,7 +54,7 @@ const TalleDetail = props => {
                 title: "¡Eliminado!",
                 show: true,
                 type: "",
-                message: "Registro '" + talle.Descripcion + "' eliminado con éxito",
+                message: "Color '" + color.Descripcion + "' eliminado con éxito",
                 afterCloseModal: goBack,
             })
         })
@@ -67,28 +67,28 @@ const TalleDetail = props => {
             title: "Borrar",
             show: true,
             type: "delete",
-            message: "¿Está seguro que desea eliminar el Talle '" + talle.Descripcion + "'?",
+            message: "¿Está seguro que desea eliminar el color '" + color.Descripcion + "'?",
             onDelete: onDelete,
         })
     }
 
     const onChangeDescripcion = e => {
-        setTalle({...talle,
+        setColor({...color,
             Descripcion: e.target.value,
         })
     }
 
     const goBack = () => {
-        navigateTo("/talles");
+        navigateTo("/colores");
     }
 
     const onSave = () => {
-        saveTalleApiCall(talle.Id, talle)
+        saveColorApiCall(color.Id, color)
         .then(response=>{
             setModalProps({
                 title: "Guardado",
                 show: true,
-                message: "Talle " + talle.Descripcion + " guardado con éxito",
+                message: "Color " + color.Descripcion + " guardada con éxito",
                 afterCloseModal: goBack
             })
         })
@@ -111,11 +111,11 @@ const TalleDetail = props => {
                 <FormGroup>
                     <FormControl sx={{ minWidth: "30%" }}>
                         <small> Código </small>
-                        <Input id="my-input" aria-describedby="my-helper-text" disabled value={talle.Id ?? ""} />
+                        <Input id="my-input" aria-describedby="my-helper-text" disabled value={color.Id ?? ""} />
                     </FormControl>
                     <FormControl sx={{ minWidth: "60%" }}>
                         <small> Descripción </small>
-                        <Input onChange={onChangeDescripcion} id="my-input" aria-describedby="my-helper-text" value={talle.Descripcion ?? ""} />
+                        <Input onChange={onChangeDescripcion} id="my-input" aria-describedby="my-helper-text" value={color.Descripcion ?? ""} />
                     </FormControl>
                 </FormGroup>
                 <FormButtonsContainer>
@@ -127,4 +127,4 @@ const TalleDetail = props => {
     );
 };
 
-export default TalleDetail;
+export default ColorDetail;
