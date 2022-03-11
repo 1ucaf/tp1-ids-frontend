@@ -9,13 +9,25 @@ import CustomizedTables from '../../components/table/Table';
 
 const columns = [
     {
-      headerText: "Código",
-      selector: "Id",
+      headerText: "Legajo",
+      selector: "Legajo",
     },
     {
-      headerText: "Descripción",
-      selector: "Descripcion",
-    }
+      headerText: "Nombre",
+      selector: "Nombre",
+    },
+    {
+      headerText: "Apellido",
+      selector: "Apellido",
+    },
+    {
+      headerText: "UserName",
+      selector: "UserName",
+    },
+    {
+      headerText: "Email",
+      selector: "Email",
+    },
 ]
 
 const Usuarios = () => {
@@ -38,7 +50,7 @@ const Usuarios = () => {
             <Button variant="contained" size="large" onClick={()=>{navigateTo("/usuarios/new")}}>Nuevo</Button>
         </FlexContainer>
         
-        <CustomizedTables rows={data} columns={columns} onRowClick={id=> navigateTo("/usuarios/"+id) } idColumn="Id"/>
+        <CustomizedTables rows={data} columns={columns} onRowClick={legajo=> navigateTo("/usuarios/"+legajo) } idColumn="Legajo"/>
     </TablePageContainer>
   );
 };

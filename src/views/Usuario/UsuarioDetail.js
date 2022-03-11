@@ -40,7 +40,7 @@ const UsuarioDetail = props => {
             });
         }
         else {
-            setUsuario({Id: 0});
+            setUsuario({Legajo: 0});
         }
     }, [])
 
@@ -54,7 +54,7 @@ const UsuarioDetail = props => {
                 title: "¡Eliminado!",
                 show: true,
                 type: "",
-                message: "El usuario '" + usuario.Descripcion + "' fue eliminado con éxito",
+                message: "El usuario '" + usuario.UserName + "' fue eliminado con éxito",
                 afterCloseModal: goBack,
             })
         })
@@ -67,7 +67,7 @@ const UsuarioDetail = props => {
             title: "Borrar",
             show: true,
             type: "delete",
-            message: "¿Está seguro que desea eliminar el usuario'" + usuario.Descripcion + "'?",
+            message: "¿Está seguro que desea eliminar el usuario'" + usuario.UserName + "'?",
             onDelete: onDelete,
         })
     }
@@ -83,12 +83,12 @@ const UsuarioDetail = props => {
     }
 
     const onSave = () => {
-        saveUsuarioApiCall(usuario.Id, usuario)
+        saveUsuarioApiCall(usuario.Legajo, usuario)
         .then(response=>{
             setModalProps({
                 title: "Guardado",
                 show: true,
-                message: "Usuario " + usuario.Descripcion + " guardado con éxito",
+                message: "Usuario " + usuario.UserName + " guardado con éxito",
                 afterCloseModal: goBack
             })
         })
@@ -111,11 +111,11 @@ const UsuarioDetail = props => {
                 <FormGroup>
                     <FormControl sx={{ minWidth: "30%" }}>
                         <small> Código </small>
-                        <Input id="my-input" aria-describedby="my-helper-text" disabled value={usuario.Id ?? ""} />
+                        <Input id="my-input" aria-describedby="my-helper-text" disabled value={usuario.Legajo ?? ""} />
                     </FormControl>
                     <FormControl sx={{ minWidth: "60%" }}>
                         <small> Descripción </small>
-                        <Input onChange={onChangeDescripcion} id="my-input" aria-describedby="my-helper-text" value={usuario.Descripcion ?? ""} />
+                        <Input onChange={onChangeDescripcion} id="my-input" aria-describedby="my-helper-text" value={usuario.UserName ?? ""} />
                     </FormControl>
                 </FormGroup>
                 <FormButtonsContainer>
