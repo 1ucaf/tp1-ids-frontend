@@ -78,9 +78,9 @@ const Main = () => {
           <Route exact path="/logout" element={<LogOut />}/>
           <Route path="/productos">
             <Route path="" element={
-              <PrivateRoute userTypeRequired="Administrador">
+              // <PrivateRoute userTypeRequired="Administrador">
                 <Productos />
-              </PrivateRoute>
+              // </PrivateRoute>
             }/>
             <Route path=":productoId" element={
               <PrivateRoute userTypeRequired="Administrador">

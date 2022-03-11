@@ -112,6 +112,12 @@ export const ProductoDetail = (props) => {
         }
     }
 
+    const onChangeCodigoDeBarra = (e) => {
+        setProducto({...producto,
+            CodigoDeBarra: e.target.value,
+        })
+    }
+    
     const onChangeDescripcion = (e) => {
         setProducto({...producto,
             Descripcion: e.target.value,
@@ -175,10 +181,14 @@ export const ProductoDetail = (props) => {
                         </FormGroup>
                         : <></>
                     }
+                    <FormControl sx={{ minWidth: "30%" }}>
+                        <small> Id </small>
+                        <Input id="my-input" aria-describedby="my-helper-text" disabled value={producto.Id ?? ""} />
+                    </FormControl>
                     <FormGroup>
                         <FormControl sx={{ minWidth: "30%" }}>
-                            <small> Código </small>
-                            <Input onChange={onChangeDescripcion} id="my-input" aria-describedby="my-helper-text" disabled value={producto.CodigoDeBarra ?? ""} />
+                            <small> Código De Barra </small>
+                            <Input onChange={onChangeCodigoDeBarra} id="my-input" aria-describedby="my-helper-text" disabled value={producto.CodigoDeBarra ?? ""} />
                         </FormControl>
                         <FormControl sx={{ minWidth: "60%" }}>
                             <small> Descripción </small>
