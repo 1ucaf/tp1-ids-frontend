@@ -15,12 +15,16 @@ import Productos from '../views/Productos/Productos';
 import { ProductoDetail } from '../views/Productos/ProductoDetail';
 import Marcas from '../views/Marca/Marcas';
 import MarcaDetail from '../views/Marca/MarcaDetail';
+import Talles from '../views/Talle/Talles';
+import TalleDetail from '../views/Talle/TalleDetail';
 import NewVenta from '../views/Ventas/NewVenta';
 import PrivateRoute from './PrivateRoute';
 import Colores from '../views/Color/Colores';
 import ColorDetail from '../views/Color/ColorDetail';
 import Rubros from '../views/Rubro/Rubro';
 import RubroDetail from '../views/Rubro/RubroDetail';
+import UsuarioDetail from '../views/Usuario/UsuarioDetail';
+import Usuarios from '../views/Usuario/Usuarios';
 
 
 const routesAdmin = [
@@ -33,8 +37,8 @@ const routesAdmin = [
       path: "/productos"
   },
   {
-      text: "Marcas",
-      path: "/marcas"
+    text: "Marcas",
+    path: "/marcas"
   },
   {
     text: "Colores",
@@ -43,6 +47,22 @@ const routesAdmin = [
   {
     text: "Rubros",
     path: "/rubros"
+  },
+  {
+    text: "Talles",
+    path: "/talles"
+  },
+  {
+    text: "Colores",
+    path: "/colores"
+  },
+  {
+    text: "Rubros",
+    path: "/rubros"
+  },
+  {
+    text: "Usuarios",
+    path: "/usuarios"
   },
 ];
 
@@ -123,6 +143,24 @@ const Main = () => {
             }/>
           </Route>
 
+          <Route path="/talles">
+            <Route path="" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <Talles />
+              </PrivateRoute>
+              }/>
+            <Route path=":tallesId" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <TalleDetail />
+              </PrivateRoute>
+              }/>
+            <Route path="new" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <talleDetail isNew={true} />
+              </PrivateRoute>
+            }/>
+          </Route>
+
           <Route path="/colores">
             <Route path="" element={
               <PrivateRoute userTypeRequired="Administrador">
@@ -158,7 +196,25 @@ const Main = () => {
               </PrivateRoute>
             }/>
           </Route>
-
+         
+          <Route path="/usuarios">
+            <Route path="" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <Usuarios />
+              </PrivateRoute>
+              }/>
+            <Route path=":UsuarioId" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <UsuarioDetail />
+              </PrivateRoute>
+              }/>
+            <Route path="new" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <UsuarioDetail isNew={true} />
+              </PrivateRoute>
+            }/>
+          </Route>
+         
           <Route path="/ventas">
             <Route path="" element={
               <PrivateRoute userTypeRequired="Vendedor">
