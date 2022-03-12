@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAllMarcasApiCall } from '../../api/MarcasApiCalls';
+import { getAllRubrosApiCall } from '../../api/RubrosApiCalls';
 import FlexContainer from '../../components/Containers/FlexContainer';
 //import FormButtonsContainer from '../../components/Containers/FormButtonsContainer';
 import TablePageContainer from '../../components/Containers/TablePageContainer';
@@ -18,12 +18,12 @@ const columns = [
     }
 ]
 
-const Marcas = () => {
+const Rubros = () => {
   const [data, setData] = useState([]);
   const navigateTo = useNavigate();
 
   useEffect(()=>{
-    getAllMarcasApiCall()
+    getAllRubrosApiCall()
       .then(data=>{
           setData(data);
       })
@@ -35,12 +35,12 @@ const Marcas = () => {
   return(
     <TablePageContainer>
         <FlexContainer alignX="flex-end" margin="0 0 20px 0">
-            <Button variant="contained" size="large" onClick={()=>{navigateTo("/marcas/new")}}>Nuevo</Button>
+            <Button variant="contained" size="large" onClick={()=>{navigateTo("/rubros/new")}}>Nuevo</Button>
         </FlexContainer>
         
-        <CustomizedTables rows={data} columns={columns} onRowClick={id=> navigateTo("/marcas/"+id) } idColumn="Id"/>
+        <CustomizedTables rows={data} columns={columns} onRowClick={id=> navigateTo("/rubros/"+id) } idColumn="Id"/>
     </TablePageContainer>
   );
 };
 
-export default Marcas;
+export default Rubros;
