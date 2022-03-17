@@ -57,14 +57,6 @@ const routesAdmin = [
     path: "/talles"
   },
   {
-    text: "Colores",
-    path: "/colores"
-  },
-  {
-    text: "Rubros",
-    path: "/rubros"
-  },
-  {
     text: "Usuarios",
     path: "/usuarios"
   },

@@ -72,14 +72,34 @@ const UsuarioDetail = props => {
         })
     }
 
-    const onChangeDescripcion = e => {
+    const onChangeLegajo = e => {
         setUsuario({...usuario,
-            Descripcion: e.target.value,
+            Legajo: e.target.value,
+        })
+    }
+    const onChangeEmail = e => {
+        setUsuario({...usuario,
+            Email: e.target.value,
+        })
+    }
+    const onChangeNombre = e => {
+        setUsuario({...usuario,
+            Nombre: e.target.value,
+        })
+    }
+    const onChangeApellido = e => {
+        setUsuario({...usuario,
+            Apellido: e.target.value,
+        })
+    }
+    const onChangeTipoUsuario = e => {
+        setUsuario({...usuario,
+            tipoUsuario: e.target.value,
         })
     }
 
     const goBack = () => {
-        navigateTo("/usuario");
+        navigateTo("/usuarios");
     }
 
     const onSave = () => {
@@ -108,14 +128,32 @@ const UsuarioDetail = props => {
                     </FormGroup>
                     : <></>
                 }
-                <FormGroup>
-                    <FormControl sx={{ minWidth: "30%" }}>
-                        <small> Código </small>
-                        <Input id="my-input" aria-describedby="my-helper-text" disabled value={usuario.Legajo ?? ""} />
+                <FormGroup>                    
+                    <FormControl sx={{ minWidth: "40%" }}>
+                        <small> Legajo </small>
+                        <Input onChange={onChangeLegajo} id="my-input" aria-describedby="my-helper-text"/>
                     </FormControl>
-                    <FormControl sx={{ minWidth: "60%" }}>
-                        <small> Descripción </small>
-                        <Input onChange={onChangeDescripcion} id="my-input" aria-describedby="my-helper-text" value={usuario.UserName ?? ""} />
+                    <FormControl sx={{ minWidth: "40%" }}>
+                        <small> Email </small>
+                        <Input onChange={onChangeEmail} id="my-input" aria-describedby="my-helper-text"/>
+                    </FormControl>
+                    <FormControl sx={{ minWidth: "40%" }}>
+                        <small> Nombre </small>
+                        <Input onChange={onChangeNombre} id="my-input" aria-describedby="my-helper-text"/>
+                    </FormControl>
+                    <FormControl sx={{ minWidth: "40%" }}>
+                        <small> Apellido </small>
+                        <Input onChange={onChangeApellido} id="my-input" aria-describedby="my-helper-text"/>
+                    </FormControl>
+                    <FormControl sx={{ minWidth: "40%" }}>
+                        <small> Tipo de Usuario </small>
+                        {/* <Input onChange={onChangeTipoUsuario} id="my-input" aria-describedby="my-helper-text"/> */}
+                        <form>
+                        <select> 
+                            <option>Vendedor</option>
+                            <option>Administrador</option> 
+                        </select>
+                        </form>
                     </FormControl>
                 </FormGroup>
                 <FormButtonsContainer>
