@@ -33,6 +33,10 @@ const routesAdmin = [
       path: "/"
   },
   {
+      text: "Nueva Venta",
+      path: "/ventas/new"
+  },
+  {
       text: "Productos",
       path: "/productos"
   },
@@ -72,8 +76,8 @@ const routesSalesMan = [
       path: "/"
   },
   {
-      text: "Ventas",
-      path: "/ventas"
+      text: "Nueva Venta",
+      path: "/ventas/new"
   },
 ]
 const Main = () => {
@@ -217,7 +221,7 @@ const Main = () => {
          
           <Route path="/ventas">
             <Route path="" element={
-              <PrivateRoute userTypeRequired="Vendedor">
+              <PrivateRoute userTypeRequired="Administrador">
                 <Productos />
               </PrivateRoute>
             }/>
@@ -227,7 +231,7 @@ const Main = () => {
               </PrivateRoute>
             }/>
             <Route path="new" element={
-              <PrivateRoute userTypeRequired="Vendedor">
+              <PrivateRoute /* userTypeRequired="Vendedor" */>
                 <NewVenta />
               </PrivateRoute>
             }/>

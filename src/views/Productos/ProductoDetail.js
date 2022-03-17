@@ -188,7 +188,7 @@ export const ProductoDetail = (props) => {
                     <FormGroup>
                         <FormControl sx={{ minWidth: "30%" }}>
                             <small> Código De Barra </small>
-                            <Input onChange={onChangeCodigoDeBarra} id="my-input" aria-describedby="my-helper-text" disabled value={producto.CodigoDeBarra ?? ""} />
+                            <Input onChange={onChangeCodigoDeBarra} id="my-input" aria-describedby="my-helper-text" disabled={!props.isNew} value={producto.CodigoDeBarra ?? ""} />
                         </FormControl>
                         <FormControl sx={{ minWidth: "60%" }}>
                             <small> Descripción </small>

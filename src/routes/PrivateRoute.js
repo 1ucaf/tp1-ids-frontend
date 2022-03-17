@@ -8,7 +8,7 @@ const PrivateRoute = ({userTypeRequired, children}) => {
     const userType = getUserType();
     console.log(userTypeRequired, userType);
     const tokenAtom = getToken();
-    return (tokenAtom && userType === userTypeRequired) ? children : <Navigate to="/login" /> ;
+    return userTypeRequired ? ((tokenAtom && userType === userTypeRequired) ? children : <Navigate to="/login" />) : children ;
 };
 
 export default PrivateRoute;

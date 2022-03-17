@@ -30,9 +30,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function CustomizedTables(props) {
+  const onRowClick = (row)=>{
+    if(props.onRowClick)
+      props.onRowClick(row[props.idColumn])
+  }
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+    <TableContainer component={Paper} sx={{ maxHeight: props.height, maxWidth: props.width }}>
+      <Table sx={{ minWidth: 700}} aria-label="customized table">
         <TableHead>
           <TableRow>
             {props.columns?.map((column, index)=>{
@@ -44,7 +48,7 @@ export default function CustomizedTables(props) {
           {
             props.rows?.map((row, rowIndex)=>{
               return (
-                <StyledTableRow onClick={()=>{props.onRowClick(row[props.idColumn])}} className={styles["styled-row"]} key={rowIndex}>
+                <StyledTableRow onClick={()=>{onRowClick(row)}} className={styles["styled-row"]} key={rowIndex}>
                   {
                     props.columns?.map((column, cellIndex)=>{
                       return !column.hidden ? (

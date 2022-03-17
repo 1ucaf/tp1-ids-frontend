@@ -4,7 +4,7 @@ const FlexContainer = props => {
   return (
     <div style={{
         display: "flex",
-        flexDirection: "row",
+        flexDirection: props.flexDirection ?? "row",
         flexWrap: "wrap",
         justifyContent: props.alignX ?? "center",
         alignItems: props.alignY ?? "center",
