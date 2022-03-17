@@ -228,6 +228,24 @@ const Main = () => {
               </PrivateRoute>
             }/>
           </Route>
+
+          <Route path="/talles">
+            <Route path="" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <Talles />
+              </PrivateRoute>
+              }/>
+            <Route path=":talleId" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <TalleDetail />
+              </PrivateRoute>
+              }/>
+            <Route path="new" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <TalleDetail isNew={true} />
+              </PrivateRoute>
+            }/>
+          </Route>
         </Routes>
     </Router>
   );
