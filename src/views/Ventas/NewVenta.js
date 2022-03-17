@@ -91,6 +91,7 @@ const NewVenta = props => {
     setVenta({
       ...venta,
       ClienteCuit: filtered[0].Cuit,
+      Cliente: filtered[0],
     })
   }
 
