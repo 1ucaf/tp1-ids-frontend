@@ -21,13 +21,18 @@ const columns = [
       selector: "Apellido",
     },
     {
-      headerText: "UserName",
+      headerText: "Nombre de usuario",
       selector: "UserName",
     },
     {
       headerText: "Email",
       selector: "Email",
     },
+    {
+      headerText: "Tipo Usuario",
+      selector: "tipoUsuario",
+    },
+
 ]
 
 const Usuarios = () => {
