@@ -147,7 +147,13 @@ const UsuarioDetail = props => {
                     </FormControl>
                     <FormControl sx={{ minWidth: "40%" }}>
                         <small> Tipo de Usuario </small>
-                        <Input onChange={onChangeTipoUsuario} id="my-input" aria-describedby="my-helper-text"/>
+                        {/* <Input onChange={onChangeTipoUsuario} id="my-input" aria-describedby="my-helper-text"/> */}
+                        <form>
+                        <select> 
+                            <option>Vendedor</option>
+                            <option>Administrador</option> 
+                        </select>
+                        </form>
                     </FormControl>
                 </FormGroup>
                 <FormButtonsContainer>
