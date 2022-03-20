@@ -42,12 +42,17 @@ const columns = [
     
     const onChangeNombreProducto = e => {
         setNombreProductoBuscar(e.target.value);
-        const filtered = data.filter( p => p.CodigoDeBarra.toString().toLowerCase().includes(e.target.value) || p.Descripcion.toString().toLowerCase().includes(e.target.value));
+        const filtered = data.filter( p => p.CodigoDeBarra.toString().toLowerCase().includes(e.target.value.toString().toLowerCase()) || p.Descripcion.toString().toLowerCase().includes(e.target.value.toString().toLowerCase()));
         setDataFiltered(filtered);
         // setVenta({
         // ...venta,
         // ClienteCuit: filtered[0].Cuit,
         // })
+    }
+
+    const onProductSelect = id => {
+      const producto = dataFiltered.find(p => p.CodigoDeBarra === id);
+      props.onProductSelect(id, producto);
     }
 
     return (
@@ -56,7 +61,7 @@ const columns = [
                 <small> Filtrar </small>
                 <Input onChange={onChangeNombreProducto} id="my-input" aria-describedby="my-helper-text" value={nombreProductoBuscar ?? ""} />
             </FormControl>
-            <CustomizedTables height={props.height} width={props.width} rows={dataFiltered} columns={columns} onRowClick={props.onProductSelect} idColumn="CodigoDeBarra"/>
+            <CustomizedTables height={props.height} width={props.width} rows={dataFiltered} columns={columns} onRowClick={onProductSelect} idColumn="CodigoDeBarra"/>
         </FlexContainer>
     )
   }

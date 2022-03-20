@@ -52,11 +52,19 @@ const NewVenta = props => {
     TipoFacturaId: 1,
     LineasDeVenta: []
   });
+
+  const [productsInSale, setProductsInSale] = useState([]/* {
+    ClienteCUIT: "20000000000",
+    User: getUserName(),
+    MedioDePago: 1,
+    TipoFacturaId: 1,
+    LineasDeVenta: []
+  } */);
   const [nombreClienteBuscar, setNombreClienteBuscar] = useState("");
   const [clientes, setClientes] = useState([]);
   const [clientesFiltered, setClientesFiltered] = useState([]);
 
-  const [productos, setProductos] = useState([]);
+  const [selectedProducto, setSelectedProducto] = useState([]);
 
   const [modalProps, setModalProps] = useState({
       title: "",
@@ -85,7 +93,7 @@ const NewVenta = props => {
 
   const onChangeNombreCliente = e => {
     setNombreClienteBuscar(e.target.value);
-    const filtered = clientes.filter( c => c.Cuit.toString().toLowerCase().includes(e.target.value) || c.NombreApellido.toString().toLowerCase().includes(e.target.value));
+    const filtered = clientes.filter( c => c.Cuit.toString().toLowerCase().includes(e.target.value.toString().toLowerCase()) || c.NombreApellido.toString().toLowerCase().includes(e.target.value.toString().toLowerCase()));
     setClientesFiltered(filtered);
     console.log(filtered[0].Cuit);
     setVenta({
@@ -112,8 +120,9 @@ const NewVenta = props => {
     });
   }
 
-  const onProductSelect = (id) =>{
-
+  const onProductSelect = (id, producto) =>{
+    console.log(id, producto);
+    setSelectedProducto(producto);
   }
     
   const goBack = () => {
@@ -180,14 +189,24 @@ const NewVenta = props => {
                 </FormControl>
               </FormGroup>
               <FlexContainer alignX="space-between">
-                <TableProductos onProductSelect={(id)=>onProductSelect(id)} width={400}/>
+                <TableProductos onProductSelect={(id, producto)=>onProductSelect(id, producto)} width={400}/>
+                <FlexContainer alignX="center" alignY="center">
+                  <FormControl>
+                    Producto
+                    <Input value={selectedProducto.Descripcion} disabled/>
+                  </FormControl>
+                  <FormControl>
+                    Cantidad
+                    <Input />
+                  </FormControl>
+                </FlexContainer>
                 <FlexContainer alignY="start">
-                  <CustomizedTables height={600} width={400} columns={productColumns} data={[]}/>
+                  <CustomizedTables height={600} width={400} columns={productColumns} data={productsInSale}/>
                 </FlexContainer>
               </FlexContainer>
               <FormButtonsContainer>
-                  <Button variant="outlined" size="large" onClick={goBack}>Cancelar</Button>
-                  <Button variant="contained" size="large" onClick={onSave}>Guardar</Button>
+                <Button variant="outlined" size="large" onClick={goBack}>Cancelar</Button>
+                <Button variant="contained" size="large" onClick={onSave}>Guardar</Button>
               </FormButtonsContainer>
           </FormPageContainer>
         </>

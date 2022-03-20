@@ -30,7 +30,7 @@ export const getAllProductosApiCall = async () => {
 }
 export const getProductoApiCall = async (id) => {
     try {
-        const response = await axios.get(rootApiRoute + "/Productos/"+id);
+        const response = await axios.get(rootApiRoute + "/Productos/?CodigoDeBarra="+id);
         return response.data;
     } catch (error) {
         throw error;
