@@ -13,15 +13,11 @@ const columns = [
       selector: "Legajo",
     },
     {
-      headerText: "Nombre",
-      selector: "Nombre",
+      headerText: "Apellido Y Nombre",
+      selector: "ApellidoYNombre",
     },
     {
-      headerText: "Apellido",
-      selector: "Apellido",
-    },
-    {
-      headerText: "Nombre de usuario",
+      headerText: "UserName",
       selector: "UserName",
     },
     {
