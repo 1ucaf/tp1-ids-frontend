@@ -1,4 +1,4 @@
-import { Button, FormControl, Input } from '@mui/material';
+import { Box, Button, FormControl, Input, InputLabel, MenuItem, Select } from '@mui/material';
 import FormGroup from "../../components/Containers/FormGroup";
 import React, { useEffect, useState } from 'react';
 import FormPageContainer from '../../components/Containers/FormPageContainer';
@@ -82,19 +82,19 @@ const UsuarioDetail = props => {
             Email: e.target.value,
         })
     }
-    const onChangeNombre = e => {
+    const onChangeApellidoYNombre = e => {
         setUsuario({...usuario,
-            Nombre: e.target.value,
+            ApellidoYNombre: e.target.value,
         })
     }
-    const onChangeApellido = e => {
+    const onChangeUserName = e => {
         setUsuario({...usuario,
-            Apellido: e.target.value,
+            UserName: e.target.value,
         })
     }
     const onChangeTipoUsuario = e => {
         setUsuario({...usuario,
-            tipoUsuario: e.target.value,
+            TipoUsuario: e.target.value,
         })
     }
 
@@ -138,23 +138,28 @@ const UsuarioDetail = props => {
                         <Input onChange={onChangeEmail} id="my-input" aria-describedby="my-helper-text"/>
                     </FormControl>
                     <FormControl sx={{ minWidth: "40%" }}>
-                        <small> Nombre </small>
-                        <Input onChange={onChangeNombre} id="my-input" aria-describedby="my-helper-text"/>
+                        <small> Apellido y Nombre </small>
+                        <Input onChange={onChangeApellidoYNombre} id="my-input" aria-describedby="my-helper-text"/>
                     </FormControl>
                     <FormControl sx={{ minWidth: "40%" }}>
-                        <small> Apellido </small>
-                        <Input onChange={onChangeApellido} id="my-input" aria-describedby="my-helper-text"/>
+                        <small> Username </small>
+                        <Input onChange={onChangeUserName} id="my-input" aria-describedby="my-helper-text"/>
                     </FormControl>
-                    <FormControl sx={{ minWidth: "40%" }}>
-                        <small> Tipo de Usuario </small>
-                        {/* <Input onChange={onChangeTipoUsuario} id="my-input" aria-describedby="my-helper-text"/> */}
-                        <form>
-                        <select> 
-                            <option>Vendedor</option>
-                            <option>Administrador</option> 
-                        </select>
-                        </form>
-                    </FormControl>
+                        <Box sx={{ minWidth: 120 }}>
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Tipo de Usuario</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={usuario.TipoUsuario}
+                                    label="Tipo de Usuario"
+                                    onChange={onChangeTipoUsuario}
+                                >
+                                    <MenuItem value={0}>Vendedor</MenuItem>
+                                    <MenuItem value={1}>Administrador</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
                 </FormGroup>
                 <FormButtonsContainer>
                     <Button variant="outlined" size="large" onClick={goBack}>Cancelar</Button>
