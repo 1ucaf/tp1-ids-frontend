@@ -92,6 +92,11 @@ const UsuarioDetail = props => {
             UserName: e.target.value,
         })
     }
+    const onChangePassword = e => {
+        setUsuario({...usuario,
+            Password: e.target.value,
+        })
+    }
     const onChangeTipoUsuario = e => {
         setUsuario({...usuario,
             TipoUsuario: e.target.value,
@@ -129,23 +134,28 @@ const UsuarioDetail = props => {
                     : <></>
                 }
                 <FormGroup>                    
-                    <FormControl sx={{ minWidth: "40%" }}>
+                    <FormControl sx={{ minWidth: "45%" }}>
                         <small> Legajo </small>
                         <Input onChange={onChangeLegajo} id="my-input" aria-describedby="my-helper-text"/>
                     </FormControl>
-                    <FormControl sx={{ minWidth: "40%" }}>
+                    <FormControl sx={{ minWidth: "45%" }}>
                         <small> Email </small>
                         <Input onChange={onChangeEmail} id="my-input" aria-describedby="my-helper-text"/>
                     </FormControl>
-                    <FormControl sx={{ minWidth: "40%" }}>
+                    <FormControl sx={{ minWidth: "45%" }}>
                         <small> Apellido y Nombre </small>
                         <Input onChange={onChangeApellidoYNombre} id="my-input" aria-describedby="my-helper-text"/>
                     </FormControl>
-                    <FormControl sx={{ minWidth: "40%" }}>
+                    <FormControl sx={{ minWidth: "45%" }}>
                         <small> Username </small>
                         <Input onChange={onChangeUserName} id="my-input" aria-describedby="my-helper-text"/>
                     </FormControl>
-                        <Box sx={{ minWidth: 120 }}>
+                    <FormControl sx={{ minWidth: "45%" }}>
+                        <small> Contraseña </small>
+                        <Input onChange={onChangePassword} id="my-input" aria-describedby="my-helper-text"  type='password'/>
+                    </FormControl>
+                    
+                        <Box sx={{ minWidth: "45%" }}>
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">Tipo de Usuario</InputLabel>
                                 <Select
