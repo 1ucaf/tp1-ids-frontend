@@ -207,9 +207,9 @@ const NewVenta = props => {
                   <CustomizedTables height={600} width={400} columns={productColumns} data={productsInSale}/>
                 </FlexContainer>
               </FlexContainer>
-              <FormButtonsContainer>
+              <FormButtonsContainer width="350px">
                 <Button variant="outlined" size="large" onClick={goBack}>Cancelar</Button>
-                <Button variant="contained" size="large" onClick={onSave}>Guardar</Button>
+                <Button variant="contained" size="large" onClick={onSave}>Confirmar Venta</Button>
               </FormButtonsContainer>
           </FormPageContainer>
         </>

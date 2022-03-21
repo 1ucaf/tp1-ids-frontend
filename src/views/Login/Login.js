@@ -29,7 +29,7 @@ const Login = () => {
     })
 
     const onError = e => {
-        console.log(e);
+        console.log(e.response.data);
         if(e.response?.status === 401) {
             setModalProps({
                 ...modalProps,
@@ -44,7 +44,7 @@ const Login = () => {
                 title: "ERROR!",
                 show: true,
                 type: "error",
-                message: e.message,
+                message: e.response.data.ExceptionMessage ?? e.message,
             })
         }
     }
