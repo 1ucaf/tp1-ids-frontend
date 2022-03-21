@@ -10,7 +10,7 @@ const FormButtonsContainer = (props) => {
         >
             <div
                 style={{
-                    width: "300px",
+                    width: props.width ?? "300px",
                     display: "flex",
                     justifyContent: "space-between",
                     flexWrap: "wrap",
