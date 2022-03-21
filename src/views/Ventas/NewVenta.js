@@ -190,14 +190,17 @@ const NewVenta = props => {
               </FormGroup>
               <FlexContainer alignX="space-between">
                 <TableProductos onProductSelect={(id, producto)=>onProductSelect(id, producto)} width={400}/>
-                <FlexContainer alignX="center" alignY="center">
+                <FlexContainer flexDirection="column" alignX="center" alignY="center">
                   <FormControl>
                     Producto
                     <Input value={selectedProducto.Descripcion} disabled/>
                   </FormControl>
+                  <br/>
                   <FormControl>
-                    Cantidad
-                    <Input />
+                    <Box sx={{maxWidth: 100}}>
+                      Cantidad
+                      <Input />
+                    </Box>
                   </FormControl>
                 </FlexContainer>
                 <FlexContainer alignY="start">

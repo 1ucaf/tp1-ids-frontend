@@ -57,11 +57,14 @@ const columns = [
 
     return (
         <FlexContainer flexDirection="column">
-            <FormControl /* sx={{ maxWidth: "30%" }} */>
-                <small> Filtrar </small>
-                <Input onChange={onChangeNombreProducto} id="my-input" aria-describedby="my-helper-text" value={nombreProductoBuscar ?? ""} />
-            </FormControl>
-            <CustomizedTables height={props.height} width={props.width} rows={dataFiltered} columns={columns} onRowClick={onProductSelect} idColumn="CodigoDeBarra"/>
+          <br/>
+          <br/>
+          <FormControl /* sx={{ maxWidth: "30%" }} */>
+              <small> Filtrar </small>
+              <Input onChange={onChangeNombreProducto} id="my-input" aria-describedby="my-helper-text" value={nombreProductoBuscar ?? ""} />
+          </FormControl>
+          <br/>
+          <CustomizedTables height={props.height} width={props.width} rows={dataFiltered} columns={columns} onRowClick={onProductSelect} idColumn="CodigoDeBarra"/>
         </FlexContainer>
     )
   }

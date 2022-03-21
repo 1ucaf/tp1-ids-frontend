@@ -19,9 +19,9 @@ export const getUsuarioApiCall = async (id) => {
     }
 }
 
-export const saveUsuarioApiCall = async (id, marca) => {
+export const saveUsuarioApiCall = async (id, usuario) => {
     try {
-        const response = await axios.put(rootApiRoute + "/usuarios/"+id, marca);
+        const response = await axios.post(rootApiRoute + "/usuarios/", {...usuario, Password: "asdf"});
         return response;
     } catch (error) {
         throw error;
