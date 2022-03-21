@@ -25,20 +25,20 @@ const columns = [
 
 const productColumns = [
   {
-    headerText: "Codigo de Barra",
-    selector: "CodigoDeBarra",
-  },
-  {
     headerText: "Descripcion",
     selector: "Descripcion",
   },
   {
-    headerText: "Precio de Venta",
-    selector: "PrecioVenta",
+    headerText: "Precio Unitario",
+    selector: "PrecioUnitario",
   },
   {
-    headerText: "Marca",
-    selector: "Marca",
+    headerText: "Cantidad",
+    selector: "Cantidad",
+  },
+  {
+    headerText: "SubTotal",
+    selector: "SubTotal",
   },
 ]
 
@@ -64,7 +64,8 @@ const NewVenta = props => {
   const [clientes, setClientes] = useState([]);
   const [clientesFiltered, setClientesFiltered] = useState([]);
 
-  const [selectedProducto, setSelectedProducto] = useState([]);
+  const [selectedProducto, setSelectedProducto] = useState({});
+  const [quantity, setQuantity] = useState(0);
 
   const [modalProps, setModalProps] = useState({
       title: "",
@@ -124,6 +125,18 @@ const NewVenta = props => {
     console.log(id, producto);
     setSelectedProducto(producto);
   }
+
+  const addSaleLine = ()=>{
+    const subTotal = (parseFloat(quantity)) * (parseFloat(selectedProducto.PrecioVenta));
+    const saleLine = {Descripcion: selectedProducto.Descripcion, PrecioUnitario: selectedProducto.PrecioVenta, Cantidad: quantity, SubTotal: subTotal};
+
+    console.log(subTotal, saleLine);
+    setProductsInSale([...productsInSale, saleLine]);
+  }
+
+  useEffect(()=>{
+    console.log(productsInSale);
+  },[productsInSale])
     
   const goBack = () => {
     navigateTo("/home");
@@ -193,16 +206,16 @@ const NewVenta = props => {
                 <FlexContainer flexDirection="column" alignX="center" alignY="center">
                   <FormControl>
                     Producto
-                    <Input value={selectedProducto.Descripcion} disabled/>
+                    <Input value={selectedProducto?.Descripcion ?? ""} disabled/>
                   </FormControl>
                   <br/>
                   <FormControl>
-                    <FlexContainer alignX="space-between" style={{maxWidth: 220}}>
-                      <Box sx={{maxWidth: 70}}>
+                    <FlexContainer alignY="flex-end" alignX="space-between" style={{maxWidth: 220}}>
+                      <Box sx={{maxWidth: 100}}>
                         Cantidad
-                        <Input />
+                        <Input value={quantity}/>
                       </Box>
-                      <Button variant="outlined" size="small" onClick={()=>{}}>Agregar</Button>
+                      <Button variant="outlined" size="small" onClick={addSaleLine}>Agregar</Button>
                     </FlexContainer>
                     <br/>
                     <FlexContainer style={{minWidth: 200}} alignX="flex-end">
@@ -213,7 +226,7 @@ const NewVenta = props => {
                   </FormControl>
                 </FlexContainer>
                 <FlexContainer alignY="start">
-                  <CustomizedTables height={600} width={400} columns={productColumns} data={productsInSale}/>
+                  <CustomizedTables height={300} width={400} columns={productColumns} rows={productsInSale}/>
                 </FlexContainer>
               </FlexContainer>
               <FormButtonsContainer>
