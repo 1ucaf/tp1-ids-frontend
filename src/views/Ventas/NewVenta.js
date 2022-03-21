@@ -197,10 +197,19 @@ const NewVenta = props => {
                   </FormControl>
                   <br/>
                   <FormControl>
-                    <Box sx={{maxWidth: 100}}>
-                      Cantidad
-                      <Input />
-                    </Box>
+                    <FlexContainer alignX="space-between" style={{maxWidth: 220}}>
+                      <Box sx={{maxWidth: 70}}>
+                        Cantidad
+                        <Input />
+                      </Box>
+                      <Button variant="outlined" size="small" onClick={()=>{}}>Agregar</Button>
+                    </FlexContainer>
+                    <br/>
+                    <FlexContainer style={{minWidth: 200}} alignX="flex-end">
+                      <Box sx={{minWidth: 70}}>
+                        <Button variant="outlined" color="error" size="small" onClick={()=>{}}>Quitar</Button>
+                      </Box>
+                    </FlexContainer>
                   </FormControl>
                 </FlexContainer>
                 <FlexContainer alignY="start">

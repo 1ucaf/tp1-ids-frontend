@@ -3,6 +3,7 @@ import React from 'react';
 const FlexContainer = props => {
   return (
     <div style={{
+        ...props.style,
         display: "flex",
         flexDirection: props.flexDirection ?? "row",
         flexWrap: "wrap",

@@ -139,24 +139,6 @@ const Main = () => {
             }/>
           </Route>
 
-          <Route path="/talles">
-            <Route path="" element={
-              <PrivateRoute userTypeRequired="Administrador">
-                <Talles />
-              </PrivateRoute>
-              }/>
-            <Route path=":tallesId" element={
-              <PrivateRoute userTypeRequired="Administrador">
-                <TalleDetail />
-              </PrivateRoute>
-              }/>
-            <Route path="new" element={
-              <PrivateRoute userTypeRequired="Administrador">
-                <talleDetail isNew={true} />
-              </PrivateRoute>
-            }/>
-          </Route>
-
           <Route path="/colores">
             <Route path="" element={
               <PrivateRoute userTypeRequired="Administrador">
