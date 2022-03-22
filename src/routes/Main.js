@@ -220,16 +220,16 @@ const Main = () => {
           <Route path="/ventas">
             <Route path="" element={
               <PrivateRoute userTypeRequired="Administrador">
-                <Productos />
+                <Ventas />
               </PrivateRoute>
             }/>
-            <Route path=":productoId" element={
-              <PrivateRoute userTypeRequired="Vendedor">
+            <Route path=":ventaId" element={
+              <PrivateRoute userTypeRequired="Administrador">
                 <ProductoDetail />
               </PrivateRoute>
             }/>
             <Route path="new" element={
-              <PrivateRoute /* userTypeRequired="Vendedor" */>
+              <PrivateRoute userTypeRequired="Vendedor">
                 <NewVenta />
               </PrivateRoute>
             }/>
