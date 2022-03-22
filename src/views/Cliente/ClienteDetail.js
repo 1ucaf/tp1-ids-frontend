@@ -4,16 +4,16 @@ import React, { useEffect, useState } from 'react';
 import FormPageContainer from '../../components/Containers/FormPageContainer';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createNewUsuarioApiCall, deleteUsuarioApiCall, getUsuarioApiCall, saveUsuarioApiCall } from '../../api/UsuariosApiCalls';
+import { createNewClienteApiCall, deleteClienteApiCall, getClienteApiCall, saveClienteApiCall } from '../../api/ClientesApiCalls';
 import FormButtonsContainer from '../../components/Containers/FormButtonsContainer';
 import ModalComponent from '../../components/Modal/ModalComponent';
 
-const UsuarioDetail = props => {
+const ClienteDetail = props => {
     const navigateTo = useNavigate();
 
-    const { usuarioId } = useParams();
+    const { clienteId } = useParams();
 
-    const [usuario, setUsuario] = useState({TipoUsuario: 1});
+    const [cliente, setCliente] = useState();
     const [modalProps, setModalProps] = useState({
         title: "",
         message: "",
@@ -32,21 +32,21 @@ const UsuarioDetail = props => {
     }
 
     useEffect(()=>{
-        if(usuarioId) {
-            getUsuarioApiCall(usuarioId)
+        if(clienteId) {
+            getClienteApiCall(clienteId)
             .then((data)=>{
                 console.log(data);
-                setUsuario(data);
+                setCliente(data);
             });
         }
         else {
-            setUsuario({Legajo: 0, TipoUsuario: 1});
+            setCliente({Legajo: 0});
         }
     }, [])
 
     
     const onDelete = () => {
-        deleteUsuarioApiCall(usuario.Id)
+        deleteClienteApiCall(cliente.Id)
         .then(data => {
             console.log(data);
             setModalProps({
@@ -54,7 +54,7 @@ const UsuarioDetail = props => {
                 title: "¡Eliminado!",
                 show: true,
                 type: "",
-                message: "El usuario '" + usuario.UserName + "' fue eliminado con éxito",
+                message: "El cliente '" + cliente.NombreApellido + "' fue eliminado con éxito",
                 afterCloseModal: goBack,
             })
         })
@@ -67,44 +67,44 @@ const UsuarioDetail = props => {
             title: "Borrar",
             show: true,
             type: "delete",
-            message: "¿Está seguro que desea eliminar el usuario'" + usuario.UserName + "'?",
+            message: "¿Está seguro que desea eliminar el cliente '" + cliente.NombreApellido + "'?",
             onDelete: onDelete,
         })
     }
 
-    const onChangeLegajo = e => {
-        setUsuario({...usuario,
-            Legajo: e.target.value,
+    const onChangeCuit = e => {
+        setCliente({...cliente,
+            Cuit: e.target.value,
         })
     }
-    const onChangeEmail = e => {
-        setUsuario({...usuario,
-            Email: e.target.value,
+    const onChangeRazonSocial = e => {
+        setCliente({...cliente,
+            RazonSocial: e.target.value,
         })
     }
-    const onChangeApellidoYNombre = e => {
-        setUsuario({...usuario,
-            ApellidoYNombre: e.target.value,
+    const onChangeNombreApellido = e => {
+        setCliente({...cliente,
+            NombreApellido: e.target.value,
         })
     }
-    const onChangeUserName = e => {
-        setUsuario({...usuario,
-            UserName: e.target.value,
+    const onChangeTelefono = e => {
+        setCliente({...cliente,
+            Telefono: e.target.value,
         })
     }
-    const onChangePassword = e => {
-        setUsuario({...usuario,
-            Password: e.target.value,
+    const onChangeDomicilio = e => {
+        setCliente({...cliente,
+            Domicilio: e.target.value,
         })
     }
-    const onChangeTipoUsuario = e => {
-        setUsuario({...usuario,
-            TipoUsuario: e.target.value,
+    const onChangeCondicion = e => {
+        setCliente({...cliente,
+            Condicion: e.target.value,
         })
     }
 
     const goBack = () => {
-        navigateTo("/usuarios");
+        navigateTo("/clientes");
     }
 
     const onSave = () => {
@@ -112,16 +112,16 @@ const UsuarioDetail = props => {
             setModalProps({
                 title: "Guardado",
                 show: true,
-                message: "Usuario " + usuario.UserName + " guardado con éxito",
+                message: "Cliente " + cliente.NombreApellido + " guardado con éxito",
                 afterCloseModal: goBack
             })
         }
         if(props.isNew){
-            createNewUsuarioApiCall(usuario)
+            createNewClienteApiCall(cliente)
             .then(cbOk)
         }
         else {
-            saveUsuarioApiCall(usuario.Legajo, usuario)
+            saveClienteApiCall(cliente.Cuit, cliente)
             .then(cbOk)
         }
     }
@@ -140,42 +140,43 @@ const UsuarioDetail = props => {
                     </FormGroup>
                     : <></>
                 }
-                <FormGroup> 
-                {!props.isNew?
+                <FormGroup>                
                  <FormControl sx={{ minWidth: "45%" }}>
-                 <small> Legajo </small>
-                 <Input value={usuario.Legajo} onChange={onChangeLegajo} id="my-input" aria-describedby="my-helper-text"/>
-             </FormControl>
-                : <></>                   
-            }                  
+                 <small> CUIT </small>
+                 <Input value={cliente.Cuit} onChange={onChangeCuit} id="my-input" aria-describedby="my-helper-text"/>
+             </FormControl>              
+
                     <FormControl sx={{ minWidth: "45%", marginBottom: "25px" }}>
-                        <small> Email </small>
-                        <Input value={usuario.Email} onChange={onChangeEmail} id="my-input" aria-describedby="my-helper-text"/>
+                        <small> Razon Social </small>
+                        <Input value={cliente.RazonSocial} onChange={onChangeRazonSocial} id="my-input" aria-describedby="my-helper-text"/>
                     </FormControl>
                     <FormControl sx={{ minWidth: "45%", marginBottom: "25px"}}>
                         <small> Apellido y Nombre </small>
-                        <Input value={usuario.ApellidoYNombre} onChange={onChangeApellidoYNombre} id="my-input" aria-describedby="my-helper-text"/>
+                        <Input value={cliente.NombreApellido} onChange={onChangeNombreApellido} id="my-input" aria-describedby="my-helper-text"/>
                     </FormControl>
                     <FormControl sx={{ minWidth: "45%", marginBottom: "25px" }}>
-                        <small> Username </small>
-                        <Input value={usuario.UserName} onChange={onChangeUserName} id="my-input" aria-describedby="my-helper-text"/>
+                        <small> Telefono </small>
+                        <Input value={cliente.Telefono} onChange={onChangeTelefono} id="my-input" aria-describedby="my-helper-text"/>
                     </FormControl>
                     <FormControl sx={{ minWidth: "45%", marginBottom: "25px" }}>
-                        <small> Contraseña </small>
-                        <Input value={usuario.Password} onChange={onChangePassword} id="my-input" aria-describedby="my-helper-text"  type='password'/>
+                        <small> Domicilio </small>
+                        <Input value={cliente.Domicilio} onChange={onChangeDomicilio} id="my-input" aria-describedby="my-helper-text"  type='password'/>
                     </FormControl>
                     <Box sx={{ minWidth: "45%", marginBottom: "25px" }}>
                         <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Tipo de Usuario</InputLabel>
+                            <InputLabel id="demo-simple-select-label">Condicion Tributaria</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={usuario.TipoUsuario}
-                                label="Tipo de Usuario"
-                                onChange={onChangeTipoUsuario}
+                                value={cliente.Condicion}
+                                label="Condicion Tributaria"
+                                onChange={onChangeCondicion}
                             >
-                                <MenuItem value={0}>Vendedor</MenuItem>
-                                <MenuItem value={1}>Administrador</MenuItem>
+                                <MenuItem value={0}>Responsable Insripto</MenuItem>
+                                <MenuItem value={1}>Monotributista</MenuItem>
+                                <MenuItem value={2}>Exento</MenuItem>
+                                <MenuItem value={3}>No responsable</MenuItem>
+                                <MenuItem value={4}>Consumidor Final</MenuItem>                                
                             </Select>
                         </FormControl>
                     </Box>
@@ -189,4 +190,4 @@ const UsuarioDetail = props => {
     );
 };
 
-export default UsuarioDetail;
+export default ClienteDetail;
