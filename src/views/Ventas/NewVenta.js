@@ -1,4 +1,4 @@
-import { Button, CircularProgress, FormControl, FormGroup, Input, InputLabel, MenuItem, Select } from '@mui/material';
+import { Button, CircularProgress, FormControl, FormGroup, Input, InputAdornment, InputLabel, TextField } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FlexContainer from '../../components/Containers/FlexContainer';
@@ -52,6 +52,8 @@ const NewVenta = _props => {
     MedioDePago: 1,
     TipoFacturaId: 1,
   });
+
+  const [montoTotal, setMontoTotal] = useState(0);
 
   const [saleLines, setSaleLines] = useState([]);
   const [nombreClienteBuscar, setNombreClienteBuscar] = useState("");
@@ -178,9 +180,14 @@ const NewVenta = _props => {
   useEffect(()=>{
     setVenta(v => {
       return {...v,
-      LineasDeVenta: saleLines
-    }
+        LineasDeVenta: saleLines
+      }
     });
+    let total = 0;
+    saleLines.forEach(saleLine => {
+      total += saleLine.SubTotal;
+    });
+    setMontoTotal(total);
   }, [saleLines]);
 
   useEffect(()=>{
@@ -277,6 +284,22 @@ const NewVenta = _props => {
                 <FlexContainer alignY="start">
                   <CustomizedTables height={300} width={400} columns={productColumns} rows={saleLines} idColumn="CodigoDeBarra" onRowClick={onSaleLineSelect}/>
                 </FlexContainer>
+              </FlexContainer>
+              <FlexContainer alignY="flex-end" alignX="flex-end">
+                <Box sx={{maxWidth: 200}}>
+                  Monto Total de la Venta:
+                  <TextField
+                    value={montoTotal}
+                    color="secondary"
+                    focused
+                    InputProps={{
+                      startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                      inputProps: {
+                        style: { textAlign: "right" },
+                      }
+                  }}
+                  />
+                </Box>
               </FlexContainer>
               <FormButtonsContainer width="350px">
                 <Button variant="outlined" size="large" onClick={goBack}>Cancelar</Button>
