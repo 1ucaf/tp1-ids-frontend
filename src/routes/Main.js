@@ -25,6 +25,7 @@ import Rubros from '../views/Rubro/Rubro';
 import RubroDetail from '../views/Rubro/RubroDetail';
 import UsuarioDetail from '../views/Usuario/UsuarioDetail';
 import Usuarios from '../views/Usuario/Usuarios';
+import Ventas from '../views/Ventas/Ventas';
 
 
 const routesAdmin = [
@@ -196,16 +197,16 @@ const Main = () => {
           <Route path="/ventas">
             <Route path="" element={
               <PrivateRoute userTypeRequired="Administrador">
-                <Productos />
+                <Ventas />
               </PrivateRoute>
             }/>
-            <Route path=":productoId" element={
-              <PrivateRoute userTypeRequired="Vendedor">
+            <Route path=":ventaId" element={
+              <PrivateRoute userTypeRequired="Administrador">
                 <ProductoDetail />
               </PrivateRoute>
             }/>
             <Route path="new" element={
-              <PrivateRoute /* userTypeRequired="Vendedor" */>
+              <PrivateRoute userTypeRequired="Vendedor">
                 <NewVenta />
               </PrivateRoute>
             }/>
