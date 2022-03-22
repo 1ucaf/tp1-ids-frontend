@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAllUsuariosApiCall } from '../../api/UsuariosApiCalls';
+import { getAllClientesApiCall } from '../../api/ClientesApiCalls';
 import FlexContainer from '../../components/Containers/FlexContainer';
 //import FormButtonsContainer from '../../components/Containers/FormButtonsContainer';
 import TablePageContainer from '../../components/Containers/TablePageContainer';
@@ -9,34 +9,38 @@ import CustomizedTables from '../../components/table/Table';
 
 const columns = [
     {
-      headerText: "Legajo",
-      selector: "Legajo",
+      headerText: "CUIT",
+      selector: "Cuit",
     },
     {
       headerText: "Apellido Y Nombre",
-      selector: "ApellidoYNombre",
+      selector: "NombreApellido",
     },
     {
-      headerText: "UserName",
-      selector: "UserName",
+      headerText: "Telefono",
+      selector: "Telefono",
     },
     {
-      headerText: "Email",
-      selector: "Email",
+      headerText: "Razon Social",
+      selector: "RazonSocial",
     },
     {
-      headerText: "Tipo Usuario",
-      selector: "TipoUsuario",
+      headerText: "Domicilio",
+      selector: "Domicilio",
+    },
+    {
+        headerText: "Condicion Tributaria",
+        selector: "Condicion",
     },
 
 ]
 
-const Usuarios = () => {
+const Clientes = () => {
   const [data, setData] = useState([]);
   const navigateTo = useNavigate();
 
   useEffect(()=>{
-    getAllUsuariosApiCall()
+    getAllClientesApiCall()
       .then(data=>{
           setData(data);
       })
@@ -48,12 +52,12 @@ const Usuarios = () => {
   return(
     <TablePageContainer>
         <FlexContainer alignX="flex-end" margin="0 0 20px 0">
-            <Button variant="contained" size="large" onClick={()=>{navigateTo("/usuarios/new")}}>Nuevo</Button>
+            <Button variant="contained" size="large" onClick={()=>{navigateTo("/clientes/new")}}>Nuevo</Button>
         </FlexContainer>
         
-        <CustomizedTables rows={data} columns={columns} onRowClick={legajo=> navigateTo("/usuarios/"+legajo) } idColumn="Legajo"/>
+        <CustomizedTables rows={data} columns={columns} onRowClick={Cuit=> navigateTo("/clientes/"+Cuit) } idColumn="Cuit"/>
     </TablePageContainer>
   );
 };
 
-export default Usuarios;
+export default Clientes;
