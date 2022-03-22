@@ -6,9 +6,9 @@ import { getToken, getUserType } from '../utils/Utils';
 
 const PrivateRoute = ({userTypeRequired, children}) => {
     const userType = getUserType();
-    console.log(userTypeRequired, userType);
-    const tokenAtom = getToken();
-    return userTypeRequired ? ((tokenAtom && userType === userTypeRequired) ? children : <Navigate to="/login" />) : children ;
+    // console.log(userTypeRequired, userType); 
+    const token = getToken();
+    return userTypeRequired ? ((token && userType === userTypeRequired) ? children : <Navigate to="/login" />) : token ? children : <Navigate to="/login" /> ;
 };
 
 export default PrivateRoute;

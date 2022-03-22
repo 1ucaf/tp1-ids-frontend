@@ -30,7 +30,23 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function CustomizedTables(props) {
-  const onRowClick = (row)=>{
+  const [tableRows, setTableRows] = React.useState([]);
+  
+  React.useEffect(()=>{
+    setTableRows(props.rows.map(() => {
+      return {
+        selected: false,
+      };
+    }))
+  }, [props.rows]);
+
+  const onRowClick = (row, index)=>{
+    const tableRowsAux = tableRows.map((rowAux, indexAux)=>{
+      return {
+        selected: index === indexAux ? true : false,
+      };
+    });
+    setTableRows(tableRowsAux);
     if(props.onRowClick)
       props.onRowClick(row[props.idColumn])
   }
@@ -48,7 +64,7 @@ export default function CustomizedTables(props) {
           {
             props.rows?.map((row, rowIndex)=>{
               return (
-                <StyledTableRow onClick={()=>{onRowClick(row)}} className={styles["styled-row"]} key={rowIndex}>
+                <StyledTableRow onClick={()=>{onRowClick(row, rowIndex)}} className={tableRows[rowIndex]?.selected ? styles["selected-row"] :styles["styled-row"]} key={rowIndex}>
                   {
                     props.columns?.map((column, cellIndex)=>{
                       return !column.hidden ? (

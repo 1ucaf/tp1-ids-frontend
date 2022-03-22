@@ -77,3 +77,9 @@ export const setCookie = ({cname, cvalue, exmins, exhours, exdays}) => {
     console.log(expires);
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
+
+export const checkOnlyNumbers = e => {
+    if (!/[0-9]/.test(e.key)) {
+        e.preventDefault();
+    }
+}

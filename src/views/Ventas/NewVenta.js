@@ -8,9 +8,10 @@ import FormButtonsContainer from '../../components/Containers/FormButtonsContain
 import { Box } from '@mui/system';
 import { getAllClientesApiCall } from '../../api/ClientesApiCalls';
 import { useNavigate } from 'react-router-dom';
-import { getUserName } from '../../utils/Utils';
+import { checkOnlyNumbers, getUserName } from '../../utils/Utils';
 import CustomizedTables from '../../components/table/Table';
 import TableProductos from '../../data-components/TableProductos';
+import { newVentaApiCall } from '../../api/VentasApiCalls';
 
 const columns = [
   {
@@ -42,7 +43,7 @@ const productColumns = [
   },
 ]
 
-const NewVenta = props => {
+const NewVenta = _props => {
   const navigateTo = useNavigate();
 
   const [venta, setVenta] = useState({
@@ -50,21 +51,15 @@ const NewVenta = props => {
     User: getUserName(),
     MedioDePago: 1,
     TipoFacturaId: 1,
-    LineasDeVenta: []
   });
 
-  const [productsInSale, setProductsInSale] = useState([]/* {
-    ClienteCUIT: "20000000000",
-    User: getUserName(),
-    MedioDePago: 1,
-    TipoFacturaId: 1,
-    LineasDeVenta: []
-  } */);
+  const [saleLines, setSaleLines] = useState([]);
   const [nombreClienteBuscar, setNombreClienteBuscar] = useState("");
   const [clientes, setClientes] = useState([]);
   const [clientesFiltered, setClientesFiltered] = useState([]);
 
-  const [selectedProducto, setSelectedProducto] = useState({});
+  const [selectedSaleLine, setSelectedSaleLine] = useState();
+  const [selectedProducto, setSelectedProducto] = useState();
   const [quantity, setQuantity] = useState(0);
 
   const [modalProps, setModalProps] = useState({
@@ -83,6 +78,18 @@ const NewVenta = props => {
           }
       )
   }
+
+  const onError = e => {
+      console.log(e);
+      setModalProps({
+          ...modalProps,
+          title: "¡ERROR!",
+          show: true,
+          type: "error",
+          message: e.message,
+      })
+  }
+
 
   useEffect(()=>{
     getAllClientesApiCall()
@@ -104,6 +111,10 @@ const NewVenta = props => {
     })
   }
 
+  const onChangeCantidad = e => {
+    setQuantity(e.target.value);
+  }
+
   const handleChangeCliente = event => {
       var client = clientes.find(cliente => cliente.Cuit === event.target.value);
       console.log(client);
@@ -114,39 +125,74 @@ const NewVenta = props => {
   }
   const handleChangeClienteSeleccionado = id => {
     var client = clientes.find(cliente => cliente.Cuit === id);
-    console.log(client);
     setVenta({...venta,
         ClienteCUIT: id,
         Cliente: client,
     });
   }
 
-  const onProductSelect = (id, producto) =>{
-    console.log(id, producto);
+  const onProductSelect = (_id, producto) =>{
+    // setQuantity(0);
     setSelectedProducto(producto);
   }
-
-  const addSaleLine = ()=>{
-    const subTotal = (parseFloat(quantity)) * (parseFloat(selectedProducto.PrecioVenta));
-    const saleLine = {Descripcion: selectedProducto.Descripcion, PrecioUnitario: selectedProducto.PrecioVenta, Cantidad: quantity, SubTotal: subTotal};
-
-    console.log(subTotal, saleLine);
-    setProductsInSale([...productsInSale, saleLine]);
+  
+  const onSaleLineSelect = codigoDeBarra =>{
+    const saleLine = saleLines.find(sl => sl.CodigoDeBarra === codigoDeBarra);
+    setSelectedSaleLine(saleLine);
   }
 
-  useEffect(()=>{
-    console.log(productsInSale);
-  },[productsInSale])
+  const selectedProductoIsNotInSale = ()=>{
+    const pr = saleLines.find(p => p.CodigoDeBarra === selectedProducto.CodigoDeBarra);
+    return pr === undefined;
+  }
+  const shouldEnableAddSaleLine = ()=>{
+    return (selectedProducto && quantity > 0 && selectedProductoIsNotInSale()) ? true : false
+  }
+  const addSaleLine = () => {
+    if(shouldEnableAddSaleLine()){
+      const subTotal = (parseFloat(quantity)) * (parseFloat(selectedProducto.PrecioVenta));
+      const saleLine = {
+        CodigoDeBarra: selectedProducto.CodigoDeBarra,
+        Descripcion: selectedProducto.Descripcion,
+        PrecioUnitario: selectedProducto.PrecioVenta,
+        Cantidad: quantity,
+        SubTotal: subTotal,
+      };
+      setSaleLines([...saleLines, saleLine]);
+    }
+  }
+
+  const shouldEnableRemoveSaleLine = ()=>{
+    return (selectedSaleLine && saleLines.length > 0) ? true : false
+  }
+  const removeSaleLine = () => {
+    const saleLinesAux = saleLines.filter(saleLine => saleLine.CodigoDeBarra !== selectedSaleLine.CodigoDeBarra);
+    setSaleLines(saleLinesAux);
+  }
+  
     
   const goBack = () => {
     navigateTo("/home");
   }
 
+  useEffect(()=>{
+    setVenta(v => {
+      return {...v,
+      LineasDeVenta: saleLines
+    }
+    });
+  }, [saleLines]);
+
+  useEffect(()=>{
+    console.log(venta);
+  }, [venta]);
+
   const onSave = () => {
-      // newVentaApiCall(venta)
-      // .then(response => {
-      //     console.log(response);
-      // })
+    newVentaApiCall(venta)
+    .then(response => {
+        console.log(response);
+    })
+    .catch(onError)
   }
 
   return(
@@ -213,20 +259,23 @@ const NewVenta = props => {
                     <FlexContainer alignY="flex-end" alignX="space-between" style={{maxWidth: 220}}>
                       <Box sx={{maxWidth: 100}}>
                         Cantidad
-                        <Input value={quantity}/>
+                        <Input
+                          onKeyPress={checkOnlyNumbers}
+                          onChange={onChangeCantidad}
+                          value={quantity}/>
                       </Box>
-                      <Button variant="outlined" size="small" onClick={addSaleLine}>Agregar</Button>
+                      <Button variant="outlined" size="small" disabled={!shouldEnableAddSaleLine()} onClick={addSaleLine}>Agregar</Button>
                     </FlexContainer>
                     <br/>
                     <FlexContainer style={{minWidth: 200}} alignX="flex-end">
                       <Box sx={{minWidth: 70}}>
-                        <Button variant="outlined" color="error" size="small" onClick={()=>{}}>Quitar</Button>
+                        <Button variant="outlined" color="error" size="small" disabled={!shouldEnableRemoveSaleLine()} onClick={removeSaleLine}>Quitar</Button>
                       </Box>
                     </FlexContainer>
                   </FormControl>
                 </FlexContainer>
                 <FlexContainer alignY="start">
-                  <CustomizedTables height={300} width={400} columns={productColumns} rows={productsInSale}/>
+                  <CustomizedTables height={300} width={400} columns={productColumns} rows={saleLines} idColumn="CodigoDeBarra" onRowClick={onSaleLineSelect}/>
                 </FlexContainer>
               </FlexContainer>
               <FormButtonsContainer width="350px">

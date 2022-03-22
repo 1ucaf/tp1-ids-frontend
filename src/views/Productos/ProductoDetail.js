@@ -12,6 +12,7 @@ import FlexContainer from "../../components/Containers/FlexContainer";
 import { getAllMarcasApiCall } from "../../api/MarcasApiCalls";
 import { getAllRubrosApiCall } from "../../api/RubrosApiCalls";
 import { Box } from "@mui/system";
+import { checkOnlyNumbers } from "../../utils/Utils";
 
 export const ProductoDetail = (props) => {
     const navigateTo = useNavigate();
@@ -104,12 +105,6 @@ export const ProductoDetail = (props) => {
             goBack();
         })
         .catch(onError);
-    }
-
-    const checkOnlyNumbers = e => {
-        if (!/[0-9]/.test(e.key)) {
-            e.preventDefault();
-        }
     }
 
     const onChangeCodigoDeBarra = (e) => {

@@ -7,3 +7,11 @@
 .styled-row:nth-child(odd):hover{
     background-color: rgb(77, 77, 77);
 }
+
+.selected-row {
+    cursor: pointer;
+    background-color: rgb(225, 225, 225) !important;
+}
+.selected-row th {
+    color: rgb(39, 39, 39);
+}
