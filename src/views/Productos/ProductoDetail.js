@@ -6,7 +6,7 @@ import Modal from '../../components/Modal/ModalComponent';
 import FormButtonsContainer from "../../components/Containers/FormButtonsContainer";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useEffect, useState } from "react";
-import { deleteProductoApiCall, getProductoApiCall, saveProductoApiCall } from "../../api/ProductosApiCalls";
+import { deleteProductoApiCall, getProductoApiCall, createNewProductoApiCall, updateProductoApiCall } from "../../api/ProductosApiCalls";
 import { useNavigate, useParams } from "react-router-dom";
 import FlexContainer from "../../components/Containers/FlexContainer";
 import { getAllMarcasApiCall } from "../../api/MarcasApiCalls";
@@ -21,8 +21,8 @@ export const ProductoDetail = (props) => {
 
     const [producto, setProducto] = useState({
         CodigoDeBarra: 0,
-        MarcaId: 0,
-        RubroId: 0,
+        MarcaId: '',
+        RubroId: '',
     });
     const [netoGravado, setNetoGravado] = useState();
     const [precioVenta, setPrecioVenta] = useState();
@@ -154,10 +154,22 @@ export const ProductoDetail = (props) => {
     }
 
     const onSave = () => {
-        saveProductoApiCall(producto)
-        .then(response => {
-            console.log(response);
-        })
+        if(props.isNew) {
+            createNewProductoApiCall(producto)
+            .then(response => {
+                console.log(response);
+            })
+        } else {
+            updateProductoApiCall(producto)
+            .then(response => {
+                setModalProps({
+                    title: "Guardado",
+                    show: true,
+                    message: "Producto " + producto.Descripcion + " guardado con éxito",
+                    afterCloseModal: goBack
+                })
+            })
+        }
     }
 
     return (

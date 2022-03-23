@@ -36,6 +36,10 @@ const routesAdmin = [
       path: "/"
   },
   {
+      text: "Ventas",
+      path: "/ventas"
+  },
+  {
       text: "Productos",
       path: "/productos"
   },

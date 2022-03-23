@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getAllVentasApiCall } from '../../api/VentasApiCalls';
+import TablePageContainer from '../../components/Containers/TablePageContainer';
 import Modal from '../../components/Modal/ModalComponent';
 import CustomizedTables from '../../components/table/Table';
 
@@ -7,6 +8,7 @@ const columns = [
     {
       headerText: "Id",
       selector: "Id",
+      hidden: true
     },
     {
       headerText: "Cliente",
@@ -27,7 +29,7 @@ const columns = [
 ];
 
 const Ventas = () => {
-    const [ventas, setVentas] = useState();
+    const [ventas, setVentas] = useState([]);
 
     const [modalProps, setModalProps] = useState({
         title: "",
@@ -77,11 +79,13 @@ const Ventas = () => {
     return (
         <>
             <Modal modalProps={modalProps} onCloseModal={onCloseModal}/>
-            <div>Ventas</div>
-            <CustomizedTables
-                rows={ventas}
-                columns={columns}
-            />
+            <TablePageContainer>
+                <h1 align="center">Ventas</h1>
+                <CustomizedTables
+                    rows={ventas}
+                    columns={columns}
+                />
+            </TablePageContainer>
         </>
     )
 }

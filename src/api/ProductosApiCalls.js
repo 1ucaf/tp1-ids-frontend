@@ -37,17 +37,25 @@ export const getProductoApiCall = async (id) => {
     }
 }
 
-export const saveProductoApiCall = async (producto) => {
+export const createNewProductoApiCall = async (producto) => {
     try {
-        const response = await axios.post(rootApiRoute + "/Productos/save", producto);
+        const response = await axios.post(rootApiRoute + "/Productos/", producto);
         return response;
     } catch (error) {
         throw error;
     }
 }
-export const deleteProductoApiCall = async (id) => {
+export const updateProductoApiCall = async (producto) => {
     try {
-        const response = await axios.delete(rootApiRoute + "/Productos/" + id);
+        const response = await axios.put(rootApiRoute + "/Productos/", producto);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+export const deleteProductoApiCall = async (codigoDeBarra) => {
+    try {
+        const response = await axios.delete(rootApiRoute + "/Productos/?CodigoDeBarra=" + codigoDeBarra);
         return response;
     } catch (error) {
         throw error;

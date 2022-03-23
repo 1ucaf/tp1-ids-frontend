@@ -17,6 +17,7 @@ const ModalComponent = ({modalProps, onCloseModal}) => {
     };
     return (
         <Modal
+            ariaHideApp={false}
             isOpen={modalProps.show}
             onRequestClose={modalProps.onCloseModal}
             style={customStyles}
