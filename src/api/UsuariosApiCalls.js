@@ -19,15 +19,9 @@ export const getUsuarioApiCall = async (Legajo) => {
     }
 }
 
-<<<<<<< HEAD
-export const saveUsuarioApiCall = async (id, usuario) => {
-    try {
-        const response = await axios.post(rootApiRoute + "/usuarios/", {...usuario, Password: "asdf"});
-=======
 export const createNewUsuarioApiCall = async (usuario) => {
     try {
         const response = await axios.post(rootApiRoute + "/usuarios/", usuario);
->>>>>>> 0d7372a03e92bd5a30bcc0ef5abeb8c307b18557
         return response;
     } catch (error) {
         throw error;
