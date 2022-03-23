@@ -32,14 +32,18 @@ export const createNewClienteApiCall = async (cliente) => {
 }
 
 
-export const updateClienteApiCall = async (id, cliente) => {
-    try {
-        const response = await axios.put(rootApiRoute + "/clientes/"+id, cliente);
 
 export const saveClienteApiCall = async (cliente) => {
-    try {
+    try 
+     {
         const response = await axios.put(rootApiRoute + "/clientes/", cliente);
-
+        return response;
+    } 
+    catch (error) 
+    {
+        throw error;
+    }
+}
 
 export const updateClienteApiCall = async (id, cliente) => {
     try {
@@ -55,9 +59,9 @@ export const updateClienteApiCall = async (id, cliente) => {
 export const deleteClienteApiCall = async (cuit) => {
     try {
         const response = await axios.delete(rootApiRoute + "/clientes/"+ cuit);
-
         return response;
-    } catch (error) {
+    } 
+    catch (error) {
         throw error;
     }
 }
