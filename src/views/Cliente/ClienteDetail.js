@@ -160,7 +160,7 @@ const ClienteDetail = props => {
                     </FormControl>
                     <FormControl sx={{ minWidth: "45%", marginBottom: "25px" }}>
                         <small> Domicilio </small>
-                        <Input value={cliente.Domicilio} onChange={onChangeDomicilio} id="my-input" aria-describedby="my-helper-text"  type='password'/>
+                        <Input value={cliente.Domicilio} onChange={onChangeDomicilio} id="my-input" aria-describedby="my-helper-text"/>
                     </FormControl>
                     <Box sx={{ minWidth: "45%", marginBottom: "25px" }}>
                         <FormControl fullWidth>
