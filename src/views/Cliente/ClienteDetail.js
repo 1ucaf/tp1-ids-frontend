@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import FormPageContainer from '../../components/Containers/FormPageContainer';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createNewClienteApiCall, deleteClienteApiCall, getClienteApiCall, saveClienteApiCall } from '../../api/ClientesApiCalls';
+import { createNewClienteApiCall, deleteClienteApiCall, getClienteApiCall, updateClienteApiCall } from '../../api/ClientesApiCalls';
 import FormButtonsContainer from '../../components/Containers/FormButtonsContainer';
 import ModalComponent from '../../components/Modal/ModalComponent';
 
@@ -13,7 +13,7 @@ const ClienteDetail = props => {
 
     const { clienteId } = useParams();
 
-    const [cliente, setCliente] = useState();
+    const [cliente, setCliente] = useState({Condicion: 0});
     const [modalProps, setModalProps] = useState({
         title: "",
         message: "",
@@ -121,7 +121,7 @@ const ClienteDetail = props => {
             .then(cbOk)
         }
         else {
-            saveClienteApiCall(cliente.Cuit, cliente)
+            updateClienteApiCall(cliente.Cuit, cliente)
             .then(cbOk)
         }
     }
@@ -141,22 +141,22 @@ const ClienteDetail = props => {
                     : <></>
                 }
                 <FormGroup>                
-                 <FormControl sx={{ minWidth: "45%" }}>
-                 <small> CUIT </small>
-                 <Input value={cliente.Cuit} onChange={onChangeCuit} id="my-input" aria-describedby="my-helper-text"/>
-             </FormControl>              
+                    <FormControl sx={{ minWidth: "45%" }}>
+                        <small> CUIT </small>
+                        <Input value={cliente.Cuit ?? ""} onChange={onChangeCuit} aria-describedby="my-helper-text"/>
+                    </FormControl>
 
                     <FormControl sx={{ minWidth: "45%", marginBottom: "25px" }}>
                         <small> Razon Social </small>
-                        <Input value={cliente.RazonSocial} onChange={onChangeRazonSocial} id="my-input" aria-describedby="my-helper-text"/>
+                        <Input value={cliente.RazonSocial ?? ""} onChange={onChangeRazonSocial} aria-describedby="my-helper-text"/>
                     </FormControl>
                     <FormControl sx={{ minWidth: "45%", marginBottom: "25px"}}>
                         <small> Apellido y Nombre </small>
-                        <Input value={cliente.NombreApellido} onChange={onChangeNombreApellido} id="my-input" aria-describedby="my-helper-text"/>
+                        <Input value={cliente.NombreApellido ?? ""} onChange={onChangeNombreApellido} aria-describedby="my-helper-text"/>
                     </FormControl>
                     <FormControl sx={{ minWidth: "45%", marginBottom: "25px" }}>
                         <small> Telefono </small>
-                        <Input value={cliente.Telefono} onChange={onChangeTelefono} id="my-input" aria-describedby="my-helper-text"/>
+                        <Input value={cliente.Telefono ?? ""} onChange={onChangeTelefono} aria-describedby="my-helper-text"/>
                     </FormControl>
                     <FormControl sx={{ minWidth: "45%", marginBottom: "25px" }}>
                         <small> Domicilio </small>
@@ -168,7 +168,7 @@ const ClienteDetail = props => {
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
-                                value={cliente.Condicion}
+                                value={cliente.Condicion ?? 0}
                                 label="Condicion Tributaria"
                                 onChange={onChangeCondicion}
                             >

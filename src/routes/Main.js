@@ -25,6 +25,10 @@ import Rubros from '../views/Rubro/Rubro';
 import RubroDetail from '../views/Rubro/RubroDetail';
 import UsuarioDetail from '../views/Usuario/UsuarioDetail';
 import Usuarios from '../views/Usuario/Usuarios';
+<<<<<<< HEAD
+=======
+import Ventas from '../views/Ventas/Ventas';
+>>>>>>> origin
 import Clientes from '../views/Cliente/Clientes';
 import ClienteDetail from '../views/Cliente/ClienteDetail';
 
