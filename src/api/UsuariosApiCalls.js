@@ -30,7 +30,7 @@ export const createNewUsuarioApiCall = async (usuario) => {
 
 export const saveUsuarioApiCall = async (legajo, usuario) => {
     try {
-        const response = await axios.put(rootApiRoute + "/usuarios/"+legajo, usuario);
+        const response = await axios.put(rootApiRoute + "/usuarios/?legajo="+legajo, usuario);
         return response;
     } catch (error) {
         throw error;
@@ -39,7 +39,7 @@ export const saveUsuarioApiCall = async (legajo, usuario) => {
 
 export const deleteUsuarioApiCall = async (Legajo) => {
     try {
-        const response = await axios.delete(rootApiRoute + "/usuarios/"+Legajo);
+        const response = await axios.delete(rootApiRoute + "/usuarios/?legajo="+Legajo);
         return response;
     } catch (error) {
         throw error;
