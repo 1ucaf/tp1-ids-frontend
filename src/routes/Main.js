@@ -26,6 +26,8 @@ import RubroDetail from '../views/Rubro/RubroDetail';
 import UsuarioDetail from '../views/Usuario/UsuarioDetail';
 import Usuarios from '../views/Usuario/Usuarios';
 import Ventas from '../views/Ventas/Ventas';
+import Clientes from '../views/Cliente/Clientes';
+import ClienteDetail from '../views/Cliente/ClienteDetail';
 
 
 const routesAdmin = [
@@ -60,6 +62,10 @@ const routesAdmin = [
   {
     text: "Usuarios",
     path: "/usuarios"
+  },
+  {
+    text: "Clientes",
+    path: "/clientes"
   },
 ];
 
@@ -182,7 +188,7 @@ const Main = () => {
                 <Usuarios />
               </PrivateRoute>
               }/>
-            <Route path=":UsuarioId" element={
+            <Route path=":usuarioId" element={
               <PrivateRoute userTypeRequired="Administrador">
                 <UsuarioDetail />
               </PrivateRoute>
@@ -190,6 +196,24 @@ const Main = () => {
             <Route path="new" element={
               <PrivateRoute userTypeRequired="Administrador">
                 <UsuarioDetail isNew={true} />
+              </PrivateRoute>
+            }/>
+          </Route>
+
+          <Route path="/clientes">
+            <Route path="" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <Clientes />
+              </PrivateRoute>
+              }/>
+            <Route path=":clienteId" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <ClienteDetail />
+              </PrivateRoute>
+              }/>
+            <Route path="new" element={
+              <PrivateRoute userTypeRequired="Administrador">
+                <ClienteDetail isNew={true} />
               </PrivateRoute>
             }/>
           </Route>

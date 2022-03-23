@@ -10,27 +10,42 @@ export const getAllUsuariosApiCall = async () => {
         throw error;
     }
 }
-export const getUsuarioApiCall = async (id) => {
+export const getUsuarioApiCall = async (Legajo) => {
     try {
-        const response = await axios.get(rootApiRoute + "/usuarios/"+id);
+        const response = await axios.get(rootApiRoute + "/usuarios/?legajo="+Legajo);
         return response.data;
     } catch (error) {
         throw error;
     }
 }
 
+<<<<<<< HEAD
 export const saveUsuarioApiCall = async (id, usuario) => {
     try {
         const response = await axios.post(rootApiRoute + "/usuarios/", {...usuario, Password: "asdf"});
+=======
+export const createNewUsuarioApiCall = async (usuario) => {
+    try {
+        const response = await axios.post(rootApiRoute + "/usuarios/", usuario);
+>>>>>>> sebi
         return response;
     } catch (error) {
         throw error;
     }
 }
 
-export const deleteUsuarioApiCall = async (id) => {
+export const saveUsuarioApiCall = async (legajo, usuario) => {
     try {
-        const response = await axios.delete(rootApiRoute + "/usuarios/"+id);
+        const response = await axios.put(rootApiRoute + "/usuarios/"+legajo, usuario);
+        return response;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export const deleteUsuarioApiCall = async (Legajo) => {
+    try {
+        const response = await axios.delete(rootApiRoute + "/usuarios/"+Legajo);
         return response;
     } catch (error) {
         throw error;
