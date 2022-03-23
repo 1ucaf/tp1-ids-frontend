@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import FormPageContainer from '../../components/Containers/FormPageContainer';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate, useParams } from 'react-router-dom';
-import { createNewClienteApiCall, deleteClienteApiCall, getClienteApiCall, saveClienteApiCall } from '../../api/ClientesApiCalls';
+import { createNewClienteApiCall, deleteClienteApiCall, getClienteApiCall, updateClienteApiCall } from '../../api/ClientesApiCalls';
 import FormButtonsContainer from '../../components/Containers/FormButtonsContainer';
 import ModalComponent from '../../components/Modal/ModalComponent';
 
@@ -121,7 +121,7 @@ const ClienteDetail = props => {
             .then(cbOk)
         }
         else {
-            saveClienteApiCall(cliente.Cuit, cliente)
+            updateClienteApiCall(cliente.Cuit, cliente)
             .then(cbOk)
         }
     }
