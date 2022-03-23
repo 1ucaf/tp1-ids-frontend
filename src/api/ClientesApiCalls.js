@@ -57,7 +57,7 @@ export const updateClienteApiCall = async (id, cliente) => {
 
 export const deleteClienteApiCall = async (cuit) => {
     try {
-        const response = await axios.delete(rootApiRoute + "/clientes/"+ cuit);
+        const response = await axios.delete(rootApiRoute + "/clientes/?cuit="+ cuit);
         return response;
     } 
     catch (error) {

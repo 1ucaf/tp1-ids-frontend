@@ -46,7 +46,7 @@ const ClienteDetail = props => {
 
     
     const onDelete = () => {
-        deleteClienteApiCall(cliente.Id)
+        deleteClienteApiCall(cliente.Cuit)
         .then(data => {
             console.log(data);
             setModalProps({
