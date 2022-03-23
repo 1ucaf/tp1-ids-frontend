@@ -36,10 +36,6 @@ const routesAdmin = [
       path: "/"
   },
   {
-      text: "Nueva Venta",
-      path: "/ventas/new"
-  },
-  {
       text: "Productos",
       path: "/productos"
   },
@@ -226,7 +222,7 @@ const Main = () => {
             }/>
             <Route path=":ventaId" element={
               <PrivateRoute userTypeRequired="Administrador">
-                <ProductoDetail />
+                <Ventas/>
               </PrivateRoute>
             }/>
             <Route path="new" element={
