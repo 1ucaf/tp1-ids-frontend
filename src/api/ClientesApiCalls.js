@@ -47,8 +47,7 @@ export const saveClienteApiCall = async (cliente) => {
 
 export const updateClienteApiCall = async (id, cliente) => {
     try {
-        const response = await axios.put(rootApiRoute + "/clientes/"+id, cliente);
-
+        const response = await axios.put(rootApiRoute + "/clientes/?cuit="+id, cliente);
         return response;
     } catch (error) {
         throw error;
